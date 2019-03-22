@@ -1,0 +1,6 @@
+Ronaldo	Apple	3
+Ronaldo	Orange	5
+Messi	Apple	2
+Messi	Orange	4
+Messi	Mango	4
+Mbappe	Banana	4

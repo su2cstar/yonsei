@@ -1,0 +1,151 @@
+ \documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+
+
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Feb 14, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+\section{Manski (1993)}
+Linear model
+\begin{align}
+y &= \alpha +\beta E(y | x) + E(z|x)'\gamma + z'\eta = u , \\
+E(u|x,z) &= x'\delta \nonumber \\
+E(y|x,z) &= \alpha + \beta E(y|x) + E(z|x)'\gamma + x'\delta + z'\eta
+\end{align}
+$y$ is a scalar outcome, $x$ are attributes characterizing an individual's reference group, and $(z,u)$ are attributes that directly affect $y$. $(y,x,z)$ are observable and $u$ are not observable.
+
+\begin{enumerate}[(i)]
+\item IF $\beta \neq 0$ the linear regression express an endogenous effect. A person's outcome $y$ varies with $E(y|x)$, the mean of $y$ among those persons in the reference group defined by $x$.
+\item $\gamma \neq 0$ the model expresses an exogenous effect. $y$ varies with $E(z|x)$, the mean of the exogenous variables $z$ among these persons in the reference group.
+\item $\delta \neq 0$ the model expresses correlated effect. Persons in reference group $x$ tend to behave similarly because they have similar unobserved individual characteristics $u$ or face similar institutional enviroments.
+\item The parameter $\eta$ expresses the direct effect of $z$ on $y$.
+\end{enumerate}
+
+\section{Hsieh, C.-S. and L. F. Lee (2016)}
+\begin{align}
+Y_g = \lambda W_g Y_g + l_{m_g}\beta_1 + X_g \beta_2 + W_g X_g \beta_3 + l_{m_g}\alpha_g +\epsilon_g, g= 1, \dots, G
+\end{align}
+\begin{enumerate}[(i)]
+\item $Y_g=(y_{1,g},\dots,y_{m_g},g)'$ where $y_{i,g}$ is the observed outcome of the $i$th member in the group $g$ and $m_g$ is the number of members in the $g$th group.
+\item $X_g$ is a $m_g \times k$ matrix of exogenous variables.
+\item $l_{m_g}$ is the $m_g$ dimensional vectors of ones and $\alpha_g$ represents unobserved group specific effect.
+\item $W_g$ is an $m_g \times m_g$ spatial weight matrix which summarizes the network structure of the group $g$
+\end{enumerate}
+
+\section{A typical spatial autoregressive (SAR) model}
+\begin{align}
+Y_n = \lambda_0 W_n Y_n + X_n \beta_0 + \varepsilon_n
+\end{align}
+where $\varepsilon_n$ is a n-dimensional vector consisting of $i.i.d.$ disturbances with zero mean and a variance $\sigma_0^2$. In this model, n is the total number of spatial units, $X_n$ is an $n \times k$ matrix of regressors, and $W_n$ is a specified constant spatial weights matrix.
+\begin{align}
+Y_n = S_n^{-1} (\lambda_{0}) X_{n} \beta_0 + V_n
+\end{align}
+Where $ S_n(\lambda_{0}) = I_n - \lambda_0 W_n$ and $V_n = S_n^{-1} (\lambda_{0}) \varepsilon_n$
+
+\section{2-Stage-Least-Square}
+\begin{align}
+Y_1=\alpha_1 y_2 + \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_k x_k +u
+\end{align}
+\begin{enumerate}[(i)]
+\item Suppose there are m instrumental variables. $Z=(1,x_1,\dots,x_k,z_1,\dots,z_k)$ are correlated with $y_2$
+\item $y_2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + \dots + \delta_k x_k + \delta_{k+1} z_1 + \dots + \delta_{k+m} z_m + \varepsilon$
+\item $y_2= \hat{y}_2 + \varepsilon$
+\item $\hat{y}_2 = Z\hat{\delta} = Z(Z'Z)^{-1}Z'y_2$
+\item $\hat{X} = Z(Z'Z)^{-1}Z'X = P_Z X$
+\end{enumerate}
+
+\begin{align}
+\hat{\beta}_{2SLS} &= (\hat{X}'\hat{X})^{-1}\hat{X}'Y \nonumber \\
+&= (X'P_Z X)^{-1}X'P_Z Y \nonumber \\
+&= (X'Z(Z'Z)^{-1}Z'X)^{-1}X'Z(Z'Z)^{-1}Z'Y
+\end{align}
+\end{document}

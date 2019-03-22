@@ -1,0 +1,6 @@
+Apple	Mango	0.3333333333333333
+Apple	Orange	0.2612038749637414
+Mango	Apple	0.3333333333333333
+Mango	Orange	1.0
+Orange	Apple	0.2612038749637414
+Orange	Mango	1.0

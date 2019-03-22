@@ -1,0 +1,217 @@
+ \documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+
+
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Feb 14, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+\section{Spatial Autoregressive (SAR) Model}
+\subsection{SAR process}
+\begin{align}
+y_i = \lambda_{i,n}Y_n + \epsilon_i, \; i = 1 ,\dots , n \nonumber
+\end{align}
+where $Y_n = (y_1, \dots, y_n)'$ is the column vector of dependent variables, $w_{i,n}$ is a $n$-dimensional row vector of constants, and $\epsilon_i$'s are i.i.d. $(0,\sigma^2)$. In matrix form,
+\begin{align}
+Y_n = \lambda W_n Y_n + \mathcal{E}_n \nonumber
+\end{align}
+$W_n Y_n$ called 'spatial lag' and under assumption $S_n(\lambda) = I_n - \lambda W_n$
+\begin{align}
+Y_n =S_n^{-1}(\lambda) \mathcal{E}_n  \nonumber
+\end{align}
+the regression model with SAR disturbance $U_n$ is specified as
+\begin{align}
+Y_n = X_n \beta + U_n, \; U_n = \rho W_n U_n + \mathcal{E}_n \nonumber
+\end{align}
+where $\mathcal{E}_n$ has zero mean and variance $\sigma^2 I_n$
+\subsection{Mixed regressive, spatial autoregressive model (MRSAR)}
+\begin{align}
+Y_n &=\lambda W_n Y_n + X_n \beta + \mathcal{E}_n \nonumber \\
+Y_n &= S_n^{-1}(\lambda) X_n \beta +S_n^{-1}(\lambda) \mathcal{E}_n \nonumber
+\end{align}
+where $\mathcal{E}_n$ has zero mean and variance $\sigma^2 I_n$
+\subsection{Other models}
+A more rich SAR model may combine the MRSAR equation with SAR disturbance
+\begin{align}
+Y_n &= \lambda W_n Y_n + X_n \beta + U_n , \; U_n = \rho M_n U_n + \mathcal{E}_n \nonumber 
+\end{align}
+Further extention of a SAR model may allow high-order spatial lags as in
+\begin{align}
+Y_n = \sum_{j=1}^{p} \lambda W_{jn} Y_n + X_n \beta + \mathcal{E}_n, \nonumber
+\end{align}
+where $W_{jn}$'s are $p$ distinct spatial weights matrices.
+
+\section{Estimation Method}
+\begin{itemize}
+	\item Maximum Likelihood Estimator (MLE) : has usually goodfinite sample properties relative to other methods for the estimation of SAR models with the first order of spatial lag. However the ML method is not computationally attractive for models with more than one single spatial lag.
+	\item 2Stage Least Square (2SLS or IV) : Applicable only for the MRSAR model. Need orthogonality condition
+	\item Generalized Method of Moment (GMM) : With properly designed moment equations, the best GMM estimator exists and can be asymtotically efficient as th ML estimate under normal disturbances
+\end{itemize}
+
+\subsection{ML for SAR process}
+Under assumption that $\mathcal{E}_n$ is $N(0,\sigma^2 I_n)$.
+\begin{align}
+\ln L_n(\lambda,\sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} ln \sigma^2 \ln|S_n(\lambda)| - \frac{1}{2\sigma^2} Y_n'S_n'(\lambda)S_n(\lambda)Y_n\nonumber
+\end{align}
+
+
+where $S_n(\lambda) = I_n \lambda W_n$
+
+For the regression model with SAR disturbances, the log likelihood function is
+\begin{align}
+\ln L_n(\lambda,\sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln \sigma^2 \ln|S_n(\lambda)| - \frac{1}{2\sigma^2} (Y_n-X_n\beta)'S_n'(\lambda)S_n(\lambda)(Y_n-X_n\beta)\nonumber
+\end{align}
+
+The log likelihood function for MRSAR model is
+\begin{align}
+\ln L_n(\lambda,\sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln \sigma^2 \ln|S_n(\lambda)| - \frac{1}{2\sigma^2} (Y_n S_n(\lambda)- X_n \beta)'(Y_n S_n(\lambda)- X_n \beta)\nonumber
+\end{align}
+\subsection{2SLS Estimation for the MRSAR model}
+
+\begin{itemize}
+	\item MRSAR : $Y_n =\lambda W_n Y_n + X_n \beta + \mathcal{E}_n$
+	\item the spatial lag $W_n Y_n$ can be correlated with the disturbance $\mathcal{E}$
+	\item To avoid the bias due to correlation of $W_n Y_n$ with $\mathcal{E}_n$ need to use the Instrumental Variables(IVs)
+	\item Let $Q_n$ be a matrix of instrumental variables
+	\item Denote $Z_n = (W_n Y_n, X_n)$ and $\theta = (\lambda, \beta')'$. The MRSAR equation can be rewritten as \\ $Y_n = Z_n\theta + \mathcal{E}$
+\end{itemize}
+
+2SLS estimator of $\theta$ with $Q_n$ is
+\begin{align}
+\hat{\theta}_{2sls,n} = [Z_n' Q_n (Q_n' Q_n)^{-1} Q_n' Z_n]^{-1}Z_n' Q_n(Q_n' Q_n)^-1 Q_n' Y_n \nonumber
+\end{align}
+Orthogonality condition is $Q_n' \mathcal{E}_n$
+
+
+\subsection{Method of Moments}
+\begin{align}
+\min_{\theta} g_n'(\theta) g_n(\theta) \nonumber 
+\end{align}
+where
+\begin{align}
+g_n(\theta) = (Y_n'S_n'(\lambda) S_n(\lambda) Y_n- n\sigma^2,Y_n'S_n'(\lambda)W_n' W_n S_n(\lambda) Y_n - \sigma^2 tr(W_n' W_n),Y_n'S_n'(\lambda) W_n S_n(\lambda) Y_n)' \nonumber
+\end{align}
+It means that find the paramether which has the minumun bias 
+\begin{align}
+E(\mathcal{E}_n' \mathcal{E}) = n \sigma^2, \; E(\mathcal{E}_n' W_n' W_n \mathcal{E}) = \sigma^2 tr(W_n', W_n), \; E(\mathcal{E}_n' W_n \mathcal{E}) = 0 \nonumber
+\end{align}
+
+
+\subsection{GMM}
+For the MRSAR model 
+\begin{itemize}
+	\item $Q_n$ be an IV matrix constructed as functions of $X_n$ and $W_n$
+	\item Let $\epsilon_n(\theta) = S_n(\lambda)Y_n - X_n \beta$, Orthogonal conditions are $Q_n'\epsilon_n(\theta)$
+\end{itemize}
+$m$ is a finite number, and $P_{1n}, \dots , P_{mn}$ are constant matrices which each has a zero diagonal.
+\begin{align}
+g_n(\theta) = (P_{1n}\epsilon(\theta), \dots , P_{mn}\epsilon(\theta),Q_n)'\epsilon_n(\theta) \nonumber
+\end{align}
+
+\section{Real Data}
+\subsection{A Network Model with Social Interactions}
+\begin{align}
+Y_r = \lambda W_r Y_r + X_r \beta_1 + W_r X_r \beta_2 + L_{m_r}\alpha_r + u_r, \; u_r = \rho M_r u_r + \epsilon_r \nonumber
+\end{align}
+\begin{itemize}
+	\item $\epsilon_r=(\epsilon_{1r}, \dots , \epsilon_{m_r r})', \; \epsilon_{ir}$ i.i.d $(0,\sigma^2)$
+	\item  $R$ is number of groups
+	\item $m_r$ is number of members in $r$ group, 
+	\item $W_r, M_r$ exogenous network (social) matrices
+\end{itemize}
+Lin(2005, 2006) - AddHealth Data; (https://www.cpc.unc.edu/projects/addhealth/documentation/publicdata)
+\begin{itemize}
+	\item The Add Health Survey
+	\item Student in grade 7-12; 132 schools
+	\item Wave I in school survey - 90,118 students
+	\item Friendship network - name up to 5 male and 5 female friends
+\end{itemize}
+\end{document}

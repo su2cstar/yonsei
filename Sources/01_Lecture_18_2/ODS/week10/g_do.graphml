@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key attr.name="weight" attr.type="long" for="edge" id="d0"/>
+<graph edgedefault="undirected"><node id="대통령"/>
+<node id="평양"/>
+<node id="북한"/>
+<node id="김정은"/>
+<node id="정상회담"/>
+<node id="위원장"/>
+<node id="문재인"/>
+<node id="정상"/>
+<node id="비핵화"/>
+<node id="남북"/>
+<node id="남북정상회담"/>
+<node id="방문"/>
+<node id="국무위원장"/>
+<node id="백두산"/>
+<node id="서울"/>
+<node id="회담"/>
+<node id="내용"/>
+<node id="경제"/>
+<node id="대표"/>
+<node id="청와대"/>
+<edge source="대통령" target="문재인">
+  <data key="d0">10</data>
+</edge>
+<edge source="대통령" target="평양">
+  <data key="d0">12</data>
+</edge>
+<edge source="대통령" target="남북정상회담">
+  <data key="d0">5</data>
+</edge>
+<edge source="대통령" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="대통령" target="북한">
+  <data key="d0">6</data>
+</edge>
+<edge source="대통령" target="국무위원장">
+  <data key="d0">6</data>
+</edge>
+<edge source="대통령" target="김정은">
+  <data key="d0">8</data>
+</edge>
+<edge source="대통령" target="방문">
+  <data key="d0">3</data>
+</edge>
+<edge source="대통령" target="위원장">
+  <data key="d0">9</data>
+</edge>
+<edge source="대통령" target="회담">
+  <data key="d0">1</data>
+</edge>
+<edge source="대통령" target="정상회담">
+  <data key="d0">3</data>
+</edge>
+<edge source="대통령" target="남북">
+  <data key="d0">1</data>
+</edge>
+<edge source="대통령" target="경제">
+  <data key="d0">2</data>
+</edge>
+<edge source="평양" target="남북정상회담">
+  <data key="d0">5</data>
+</edge>
+<edge source="평양" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="평양" target="북한">
+  <data key="d0">5</data>
+</edge>
+<edge source="평양" target="국무위원장">
+  <data key="d0">5</data>
+</edge>
+<edge source="평양" target="김정은">
+  <data key="d0">6</data>
+</edge>
+<edge source="평양" target="문재인">
+  <data key="d0">7</data>
+</edge>
+<edge source="평양" target="방문">
+  <data key="d0">2</data>
+</edge>
+<edge source="평양" target="위원장">
+  <data key="d0">1</data>
+</edge>
+<edge source="평양" target="경제">
+  <data key="d0">2</data>
+</edge>
+<edge source="평양" target="정상회담">
+  <data key="d0">3</data>
+</edge>
+<edge source="평양" target="남북">
+  <data key="d0">1</data>
+</edge>
+<edge source="평양" target="청와대">
+  <data key="d0">2</data>
+</edge>
+<edge source="북한" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="북한" target="국무위원장">
+  <data key="d0">5</data>
+</edge>
+<edge source="북한" target="김정은">
+  <data key="d0">5</data>
+</edge>
+<edge source="북한" target="남북정상회담">
+  <data key="d0">3</data>
+</edge>
+<edge source="북한" target="문재인">
+  <data key="d0">3</data>
+</edge>
+<edge source="북한" target="방문">
+  <data key="d0">1</data>
+</edge>
+<edge source="북한" target="경제">
+  <data key="d0">1</data>
+</edge>
+<edge source="김정은" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="김정은" target="국무위원장">
+  <data key="d0">6</data>
+</edge>
+<edge source="김정은" target="남북정상회담">
+  <data key="d0">3</data>
+</edge>
+<edge source="김정은" target="문재인">
+  <data key="d0">4</data>
+</edge>
+<edge source="김정은" target="위원장">
+  <data key="d0">3</data>
+</edge>
+<edge source="김정은" target="경제">
+  <data key="d0">2</data>
+</edge>
+<edge source="김정은" target="정상회담">
+  <data key="d0">1</data>
+</edge>
+<edge source="정상회담" target="남북">
+  <data key="d0">2</data>
+</edge>
+<edge source="정상회담" target="위원장">
+  <data key="d0">3</data>
+</edge>
+<edge source="정상회담" target="경제">
+  <data key="d0">1</data>
+</edge>
+<edge source="위원장" target="회담">
+  <data key="d0">1</data>
+</edge>
+<edge source="위원장" target="남북">
+  <data key="d0">1</data>
+</edge>
+<edge source="위원장" target="문재인">
+  <data key="d0">1</data>
+</edge>
+<edge source="위원장" target="남북정상회담">
+  <data key="d0">1</data>
+</edge>
+<edge source="위원장" target="경제">
+  <data key="d0">1</data>
+</edge>
+<edge source="문재인" target="국무위원장">
+  <data key="d0">3</data>
+</edge>
+<edge source="문재인" target="방문">
+  <data key="d0">2</data>
+</edge>
+<edge source="문재인" target="남북정상회담">
+  <data key="d0">3</data>
+</edge>
+<edge source="정상" target="남북">
+  <data key="d0">1</data>
+</edge>
+<edge source="남북정상회담" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="남북정상회담" target="국무위원장">
+  <data key="d0">2</data>
+</edge>
+<edge source="남북정상회담" target="방문">
+  <data key="d0">1</data>
+</edge>
+<edge source="국무위원장" target="백두산">
+  <data key="d0">1</data>
+</edge>
+<edge source="국무위원장" target="경제">
+  <data key="d0">1</data>
+</edge>
+<edge source="서울" target="청와대">
+  <data key="d0">1</data>
+</edge>
+</graph></graphml>

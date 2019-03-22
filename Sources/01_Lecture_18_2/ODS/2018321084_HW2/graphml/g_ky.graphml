@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key attr.name="weight" attr.type="long" for="edge" id="d0"/>
+<graph edgedefault="undirected"><node id="양진호"/>
+<node id="갑질"/>
+<node id="괴롭힘"/>
+<node id="상사"/>
+<node id="위디스크"/>
+<node id="영상"/>
+<node id="음란물"/>
+<node id="불법"/>
+<node id="수사"/>
+<node id="압수수색"/>
+<node id="검찰"/>
+<node id="경찰"/>
+<node id="폭행"/>
+<edge source="양진호" target="폭행">
+  <data key="d0">9</data>
+</edge>
+<edge source="양진호" target="갑질">
+  <data key="d0">6</data>
+</edge>
+<edge source="양진호" target="괴롭힘">
+  <data key="d0">2</data>
+</edge>
+<edge source="양진호" target="위디스크">
+  <data key="d0">3</data>
+</edge>
+<edge source="양진호" target="상사">
+  <data key="d0">1</data>
+</edge>
+<edge source="양진호" target="영상">
+  <data key="d0">3</data>
+</edge>
+<edge source="양진호" target="압수수색">
+  <data key="d0">1</data>
+</edge>
+<edge source="양진호" target="경찰">
+  <data key="d0">4</data>
+</edge>
+<edge source="양진호" target="수사">
+  <data key="d0">1</data>
+</edge>
+<edge source="양진호" target="음란물">
+  <data key="d0">1</data>
+</edge>
+<edge source="양진호" target="불법">
+  <data key="d0">1</data>
+</edge>
+<edge source="갑질" target="폭행">
+  <data key="d0">4</data>
+</edge>
+<edge source="갑질" target="상사">
+  <data key="d0">1</data>
+</edge>
+<edge source="갑질" target="영상">
+  <data key="d0">1</data>
+</edge>
+<edge source="괴롭힘" target="위디스크">
+  <data key="d0">1</data>
+</edge>
+<edge source="괴롭힘" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="괴롭힘" target="상사">
+  <data key="d0">2</data>
+</edge>
+<edge source="상사" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="위디스크" target="압수수색">
+  <data key="d0">1</data>
+</edge>
+<edge source="위디스크" target="경찰">
+  <data key="d0">2</data>
+</edge>
+<edge source="위디스크" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="위디스크" target="영상">
+  <data key="d0">1</data>
+</edge>
+<edge source="위디스크" target="수사">
+  <data key="d0">1</data>
+</edge>
+<edge source="위디스크" target="검찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="위디스크" target="불법">
+  <data key="d0">1</data>
+</edge>
+<edge source="위디스크" target="음란물">
+  <data key="d0">1</data>
+</edge>
+<edge source="영상" target="폭행">
+  <data key="d0">3</data>
+</edge>
+<edge source="음란물" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="음란물" target="불법">
+  <data key="d0">2</data>
+</edge>
+<edge source="음란물" target="수사">
+  <data key="d0">1</data>
+</edge>
+<edge source="음란물" target="검찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="음란물" target="경찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="불법" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="불법" target="수사">
+  <data key="d0">1</data>
+</edge>
+<edge source="불법" target="검찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="불법" target="경찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="수사" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="수사" target="검찰">
+  <data key="d0">2</data>
+</edge>
+<edge source="수사" target="경찰">
+  <data key="d0">3</data>
+</edge>
+<edge source="압수수색" target="경찰">
+  <data key="d0">1</data>
+</edge>
+<edge source="검찰" target="폭행">
+  <data key="d0">2</data>
+</edge>
+<edge source="검찰" target="경찰">
+  <data key="d0">2</data>
+</edge>
+<edge source="경찰" target="폭행">
+  <data key="d0">2</data>
+</edge>
+</graph></graphml>

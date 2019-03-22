@@ -1,0 +1,24 @@
+1 연구문제설정
+2 데이터 준비 - 온라인데이터
+
+전처리
+1. 불필요한 기호 제거
+>정규식 등을 사용 re 모듈의 sub 함수를 사용
+>불필요한 기호가 무었인가에 대한 definition ex)네트워크 분석시 문장단위로 구분하기위한 . ? ! 등의 기호
+2. 대소문자 변경
+3. 토큰화 가장 일반적인 토큰의 단위는 단어
+nlpk의 wordtokenizer
+4. pos tracking 품사를찾는다
+>nlpk의 pos tagging
+5. 품사 단어 선택
+6. 원형을 찾는다 lemma
+>nlpk words lemmatizer
+7. 불용어 제거
+
+frequency 분석 ->counter 모듈을 사용
+most common(10)	
+
+팀프로젝트 
+
+ckonlpy
+adddict

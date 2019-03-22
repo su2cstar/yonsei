@@ -1,0 +1,159 @@
+ \documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+
+
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Feb 14, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+\section{Spatial Autoregressive (SAR) Model}
+According to the type of response variable in the data, cross sectional spatial data can be divide into two types: Gaussian and non-Gaussian
+
+
+\begin{itemize}
+	\item Spatial autoregressive(SAR) model : imply a geometric decay of spatial dependence.
+	\item Matrix Exponential Spatial Specification(MESS) model : imply an exponential decay
+\end{itemize}
+are often used for modeling Gaussian spatial data. There is an close correspondence between SAR and MESS models if the same row-standarized spatial weight matrix is used in both models.
+\section{Intergrated Nested Laplace Approximation (INLA)}
+\begin{itemize}
+	\item To overcome the computational bottleneck of MCMC. Model parameters are divided into two subset - hyperpaprameters and latent effects parameters.
+	\item Key assumption is that the conditional distribution of latent effcects given hyperparameters follows a multivariate Gaussian distribution
+	\item Adversely affected by an increase in the number of hyperparameters and grid points chosen for them
+\end{itemize}
+
+\section{Variational Bayes}
+Unlike MCMC Variational Bayes methods use optimization to fullfill the same inference purpose.
+\begin{itemize}
+	\item Mean-Field Variational Bayes \\
+	Relies on the assumption that the variational distribution can be factorized into a product form. \\
+	$q(\mathbf{\Theta}) = \prod_{l=1}^{M}q_l(\mathbf{\theta}_l)$
+	\item Fixed-Form Variational Bayes \\
+	avoids the product form assumption but restricts each variational factor to a parametic form\\
+	applies to conjugate models.
+	\item Integrated Nonfactorized Variational Bayes \\
+	can provide more accurate and robust estimates by taking posterior dependence into account and INFVB algorithm can be parallelized. \\
+	$q_{INFVB}(\mathbf{\Theta}) = q(\mathbf{\Theta}_c | \mathbf{\Theta}_d)q(\mathbf{\Theta}_d)$
+\end{itemize}
+
+\section{Spatial Econometric Models for Gaussian Data}
+\subsection{Spatial Autoregressive Confused (SAC) Model}
+\begin{align}
+\boldsymbol{y} &= \rho \mathbf{W}_1 \boldsymbol{y} + \mathbf{X}\beta + \boldsymbol{u} \nonumber \\
+\boldsymbol{u} &= \lambda \mathbf{W}_2 \boldsymbol{u} + \boldsymbol{\epsilon}
+\end{align}
+
+\begin{itemize}
+	\item $\mathbf{X} = \mathbf{Z}\;\; or\;\; [\mathbf{Z} \;\; \mathbf{W}_1 \mathbf{Z}]$
+	\item $\boldsymbol{\epsilon} \sim N(0,\sigma^2 \mathbf{I}_n)$
+	\item restriction on $\rho$ and $\lambda$ is  \\ $\frac{1}{\omega_{min}} < \rho < \frac{1}{\omega_{max}}$ , $\frac{1}{\gamma_{min}} < \lambda < \frac{1}{\gamma_{max}}$ where $\rho$ and $\lambda$ are eigen values of $\mathbf{W}_1$ and $\mathbf{W}_2$
+	\
+\end{itemize}
+likelihood function of SAC model is
+\begin{align}
+p(\boldsymbol{y} | \beta , \rho, \sigma^2 , \lambda) = (2\pi \sigma^2)^{-\frac{n}{2}} |\mathbf{A}||\mathbf{B}| exp\{-\frac{[\mathbf{B}(\mathbf{A}\boldsymbol{y} - \mathbf{X} \beta)]'[\mathbf{B}(\mathbf{A}\boldsymbol{y} - \mathbf{X} \beta)]}{2\sigma^2}\}
+\end{align}
+\subsection{MESS model}
+\begin{align}
+\mathbf{S}_1 \boldsymbol{y} &= \mathbf{X} \beta \boldsymbol{u} \nonumber \\
+\mathbf{S}_2\boldsymbol{u} &= \mathbf{\epsilon} \nonumber
+\end{align}
+where $\mathbf{S}_1 = e^{\alpha \mathbf{W}_1} , \; \mathbf{S}_2 = e^{\tau \mathbf{W}_2}$
+\begin{itemize}
+	\item $\mathbf{X} = \mathbf{Z}\;\; or\;\; [\mathbf{Z} \;\; \mathbf{W}_1 \mathbf{Z}]$
+	\item $\boldsymbol{\epsilon} \sim N(0,\sigma^2 \mathbf{I}_n)$
+	\item $\alpha , \; \tau$ are unconstrained
+\end{itemize}
+likelihood function of MESS model is
+\begin{align}
+p(\boldsymbol{y} | \beta , \alpha, \sigma^2 , \tau) = (2\pi \sigma^2)^{-\frac{n}{2}}  exp\{-\frac{[\mathbf{S}_2(\mathbf{S}_1\boldsymbol{y} - \mathbf{X} \beta)]'[\mathbf{S}_2(\mathbf{S}_1\boldsymbol{y} - \mathbf{X} \beta)]}{2\sigma^2}\}
+\end{align}
+\end{document} 

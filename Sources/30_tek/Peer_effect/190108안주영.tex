@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Jan 09, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+\section{Model of peer effects with an endogenous network} 
+
+\subsection{Algebric} 
+
+  \begin{align}
+    y_{i} = \beta_{1}^0 \sum\limits_{j=1, j \neq i}^N g_{ij,N}y_{j} + \mathbf{x'}_{1i}\beta_{2}^0 + 	\left(\sum\limits_{j=1, j \neq i}^N g_{ij,N}\mathbf{x}_{1i} \right) \beta_{3}^0 + \nu_{i}
+  \end{align}
+
+
+ Suppose $d_{ij,N}$ are the observed links among individuals $i \in {1, \dots ,N}$ , $d_{ij,N} = 1$ if $i$ and $j$ are directly connected and 0 otherwise.
+Where $\mathbf{x'}_{1i}$ are observed individual characteristics that affect the outcome $y_{i}$, $\nu_{i}$ are unobserved individual characteristics, and
+$ g_{ij,N} = 0$ if $i =j$ , $g_{ij,N} = \frac{d_{ij,N}}{\sum\limits_{j \neq i}d_{ij,N}}$ otherwise which is the weight of the peer effect.
+
+$\beta_{1}^0$ captures the endogenous social effect, and $\beta_{3}^0$ measures the exogenous social effect.
+\subsection{Matrix} 
+
+$ \mathbf{D}_{N}$ be the $(N \times N)$  adjacency matrix of the network whose $(i, j)^{th}$ element is $d_{ij,N}$.
+$ \mathbf{G}_{N}$ be the $(N \times N)$  adjacency matrix of the network whose $(i, j)^{th}$ element is $g_{ij,N}$.
+$ \mathbf{X}_{1N} = (\mathbf{x'}_{11}, \dots ,\mathbf{x'}_{1N})' $, 
+$ \mathbf{y}_{N} = (y_{1}, \dots ,y_{N})' $ ,
+$ \boldsymbol{\nu}_{N} = (\nu_{1}, \dots ,\nu_{N})' $
+  \begin{align}
+\mathbf{y}_{N} = \beta_{1}\mathbf{G}_{N}\mathbf{y}_{N} + \mathbf{X}_{1N}\beta_{2} + \mathbf{G}_{N}\mathbf{X}_{1N}\beta_{3} + \boldsymbol{\nu}_{N} \\
+\mathbf{y}_{N} = (\mathbf{I}_{N} - \beta_{1}\mathbf{G}_{N})^{-1}(\mathbf{X}_{1N}\beta_{2} + \mathbf{G}_{N}\mathbf{X}_{1N}\beta_{3} + \boldsymbol{\nu}_{N} )
+  \end{align}
+\\
+\\
+
+assuming that the peer group (or the network) is exogenous $E[\nu_{i}|\mathbf{X}_{1N} , \mathbf{G}_{N} ] = 0 $. the fact that the regressor $\sum\limits_{j=1}^N g_{ij,N}y_{j}$ is correlated with the error term $\nu_{i}$. For example, if $\nu_{i} \sim i.i.d.(0, \sigma^2)$, it is true that
+  \begin{align}
+E[(\mathbf{G}_{N}\mathbf{y}_{N})'\boldsymbol{\nu}_{N}] = E[(\mathbf{G}_{N}(\mathbf{I}_{N} - \beta_{1}\mathbf{G}_{N})^{-1}(\mathbf{X}_{1N}\beta_{2} + \mathbf{G}_{N}\mathbf{X}_{1N}\beta_{3} + \boldsymbol{\nu}_{N} ))'\boldsymbol{\nu}_{N}]\\
+= E[(\mathbf{G}_{N}(\mathbf{I}_{N} - \beta_{1}\mathbf{G}_{N})^{-1}\boldsymbol{\nu}_{N})'\boldsymbol{\nu}_{N}] = \sigma_{0}tr(\mathbf{G}_{N}(\mathbf{I}_{N} - \beta_{1}\mathbf{G}_{N})^{-1}) \neq 0
+  \end{align}
+One of the widely used estimation methods is the Instrumental Variable (IV) approach based on using $\mathbf{G}_{N}^2\mathbf{X}_{1N}$ as the IV of the endogenous regressor $\mathbf{G}_{N}\mathbf{y}_{N}$. Then, the natural estimator is the Two-Stage Least Squares (2SLS) estimator
+  \begin{align}
+\hat{\beta}_{N}^{2SLS} = (\mathbf{W}_{N}'\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{W}_{N})\mathbf{W}_{N}'\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{y}_{N}
+  \end{align}
+where $\mathbf{W}_{N} = [\mathbf{G}_{N}\mathbf{y}_{N},\mathbf{X}_{1N} ,\mathbf{G}_{N}\mathbf{X}_{1N} ]$ and 
+$\mathbf{Z}_{N} = [\mathbf{X}_{1N} , \mathbf{G}_{N}\mathbf{X}_{1N} , \mathbf{G}_{N}^2\mathbf{X}_{1N}]$ we asuume $\beta_{2}^0 \neq 0$
+
+When the network matrix is endogenous, $E[\mathbf{G}_{N} | \boldsymbol{\nu}_{N} ] \neq 0$, the procedure is no longer
+valid since the IV matrix $\mathbf{Z}_{N} = [\mathbf{X}_{1N} , \mathbf{G}_{N}\mathbf{X}_{1N} , \mathbf{G}_{N}^2\mathbf{X}_{1N}]$ is correlated with the error term $\boldsymbol{\nu}_{N}$  Specifically, the validity of the 2SLS estimator depends on the orthogonality condition
+$E[\boldsymbol{\nu}_{N} |\mathbf{Z}_{N} ] = 0$, which is implied if $E[\boldsymbol{\nu}_{N} |\mathbf{X}_{1N} , \mathbf{D}_{N} ] = 0$. However, it does not hold if the network $\mathbf{D}_{N}$ (or equivalently, the network $\mathbf{G}_{N}$ ) is correlated with $\boldsymbol{\nu}_{N}$.
+
+\section{Endogenous Network Formation and Identification of peer effects}
+\subsection{Formation}
+
+
+Let $\mathbf{x}_{2i}$ be a vector of observable characteristics of individual $i$, and let $\mathbf{x}_{i} = \mathbf{x1}_{i}\cup \mathbf{x}_{2i}$. 
+Define $\mathbf{X}_{2N}$ analogously to $\mathbf{X}_{1N}$ and let $\mathbf{X}_{N} = \mathbf{X}_{1N} \cup \mathbf{X2}_{N}$ .
+We introduce $a_{i}$, a scalar unobserved characteristic of individual $i$, which is treated as an
+individual fixed-effect, and hence, might be correlated with $\mathbf{x}_{i}$. We denote the vector of
+individual unobserved characteristics by $\mathbf{a}_{N} = (a_{1}, a_{2}, \dots , a_{N} )$′. Individuals are connected
+by an undirected network $\mathbf{D}_{N}$ , with the $(i, j)^{th}$ element $d_{ij,N} = 1$ if $i$ and $j$ are directly
+connected and 0 otherwise. We assume the network to be undirected, $d_{ij,N} = d_{ji,N}$ , and
+assume $d_{ii,N} = 0$ for all $i$, following the convention. In this case, there are $n = \binom{N}{2}$ dyads.
+Let $\mathbf{t}_{ij}$ denote an $l_{T} \times 1$  vector of dyad-specific characteristics of dyad $ij$, and we assume
+that $\mathbf{t}_{ij} = t(\mathbf{x}_{2i}, \mathbf{x}_{2j} )$.
+  \begin{align}
+d_{ij,N} = I(g(t(\mathbf{x}_{2i}, \mathbf{x}_{2j} ), a_{i}, a_{j} ) - u_{ij} \geq 0) \\
+d_{ij,N} = I(t(\mathbf{x}_{2i}, \mathbf{x}_{2j} )'\lambda + a_{i} + a_{j} - u_{ij} > 0)
+  \end{align}
+where $I()$ is an indicator function.
+
+
+
+\end{document}

@@ -1,0 +1,248 @@
+ \documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+
+
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Jan 09, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+\section{Natural estimator} 
+
+\subsection{Two-Stage-Least-Squares} 
+
+\begin{enumerate}
+\item $\mathbf{x}_{1i} ,\upsilon_{i} $ are observable and unobservable characteristics which effects on target variable $\mathbf{y}_{N}$.
+\item $\mathbf{x}_{2i} ,a_{i} $ are observable and unobservable characteristics which effects on link formation ($\mathbf{D}_{N}$ or $\mathbf{G}_{N}$)
+\item $\mathbf{x}_{i} = \mathbf{x}_{1i} \cup \mathbf{x}_{2i}$
+\end{enumerate}
+ 2SLS estimator is valid when $E[\mathbf{G}_{N}\boldsymbol{\upsilon}_{N}] = 0$. Specifically, the validity of the 2SLS estimator depends on the orthogonality condition $E[\boldsymbol{\upsilon}_{N}|\mathbf{Z}_{N}] = 0$ which is implied if $E[\boldsymbol{\upsilon}_{N}| \mathbf{X}_{1N},\mathbf{D}_{N}] = 0$
+  \begin{align}
+\hat{\beta}_{N}^{2SLS} = (\mathbf{W}_{N}'\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{W}_{N})^{-1}\mathbf{W}_{N}'\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{y}_{N}
+  \end{align}
+where $\mathbf{W}_{N} = [\mathbf{G}_{N}\mathbf{y}_{N},\mathbf{X}_{1N},\mathbf{G}_{N}\mathbf{X}_{1N}]$ and $\mathbf{Z}_{N} = [\mathbf{X}_{1N},\mathbf{G}_{N}\mathbf{X}_{1N},\mathbf{G}_{N}^2\mathbf{X}_{1N}]$.
+\\
+
+
+
+When the network matrix is endogenous, $E[\mathbf{G}_{N}\boldsymbol{\upsilon}_{N}] \neq 0$ and it may be that $E[\boldsymbol{\upsilon}_{N}| \mathbf{X}_{1N},\mathbf{D}_{N}] \neq 0$
+
+
+\section{Identification of Peer Effect}
+
+\subsection{Assumption 1} 
+\begin{enumerate}[(i)]
+\item $(\mathbf{x}_i , a_i, \upsilon_i)$ are i.i.d. for all i, i = 1, \dots, N
+\item $\{ u_{ij} \}_{i,j = 1, \dots,N}$ are independent of $(\mathbf{X}_{N}, \mathbf{a}_{N}, \boldsymbol{\upsilon}_{N})$ and i.i.d across $(i,j)$ with cdf $\Phi(\cdot)$
+\item $E[\upsilon_i | \mathbf{x}_{i}, a_{i}] = E[\upsilon_i | a_i]$
+\end{enumerate}
+Assumption 1(i) implies observable $\mathbf(x)_i$ and unobservable $a_i,\upsilon_i$ are randomly drawn, which is standard assumption in the peer effects literature. Assumption1(ii) assumes that link formation error $u_{ij}$ is orthogoanl th all other observables and unobservables in the model. It means that $u_{ij}$ from the link formation process does not influence outcomes $y_1, \dots , y_N$, However we allow dependence between unobserved components $a_i$ and $v_i$. Assumption 1(iii) assume that the dependence between $\mathbf{x}_i$ and $\upsilon_i$ exists only through $a_i$
+
+\subsection{Lemma 1 (Control Function of Peer Group of Endogeneity)} 
+  \begin{align}
+E[\upsilon_i | \mathbf{X}_N, \mathbf{D}_N, a_i] = E[\upsilon_i | a_i]
+  \end{align}
+
+\begin{alignat}{2}
+E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i]) (\upsilon_i - E[\upsilon_i | a_i]) \, | \, a_i] &= E[\mathbf{z}_i\upsilon_i | a_i] - E[\mathbf{z}_i|a_i]E[\upsilon_i | a_i]        \nonumber \\
+ &= E[E[\mathbf{z}_i\upsilon_i | a_i,\mathbf{X}_{1N}, \mathbf{G}_{N}]|a_i] - E[\mathbf{z}_i|a_i]E[\upsilon_i | a_i]	\nonumber \\
+ &= E[\mathbf{z}_iE[\upsilon_i | a_i,\mathbf{X}_{1N}, \mathbf{G}_{N}]|a_i] - E[\mathbf{z}_i|a_i]E[\upsilon_i | a_i]	\nonumber \\
+ &= E[\mathbf{z}_iE[\upsilon_i | a_i]|a_i] - E[\mathbf{z}_i|a_i]E[\upsilon_i | a_i]	\nonumber \\
+ & = 0 
+\end{alignat}
+as $y_i = \mathbf{w}_i'\beta^0 +\upsilon_i$
+\begin{alignat}{2}
+0 &= E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i])(y_i - \mathbf{w}_i'\beta) - E[y_i - \mathbf{w}_i'\beta | a_i] ]        \nonumber \\
+ &= E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i])(\mathbf{\upsilon}-E[\mathbf{\upsilon}_i | a_i])'](\beta -\beta^0) + E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i])(\upsilon_i - E[\upsilon_i | a_i])] \nonumber \\
+ &= E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i])(\mathbf{\upsilon}-E[\mathbf{\upsilon}_i | a_i])'](\beta -\beta^0)	\nonumber \\
+ &\Leftrightarrow \beta = \beta^0
+\end{alignat}
+
+
+\subsection{Assumption 2 (Rank condition)} 
+  \begin{align}
+E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i]) (\mathbf{w}_i - E[\mathbf{w}_i | a_i])'] \, has \, full \, rank
+  \end{align}
+
+\subsection{Theorem 3.1 (identification)}
+$\beta^0$ is identified by moment condition 
+\begin{align}
+E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i]) (y_i - E[y_i | a_i ] - (\mathbf{w}_i - E[\mathbf{w}_i | a_i])'\beta)] = 0 \Leftrightarrow \beta = \beta^0
+\end{align}
+
+\subsection{Assumption 3} 
+\begin{align}
+\mathbf{x}_{1i} \cap \mathbf{x}_{2i} = \emptyset \nonumber
+\end{align}
+Under these assumption 
+\begin{align}
+E[\upsilon_i | \mathbf{X}_N, \mathbf{D}_N, a_i] = E[\upsilon_i | a_i] = E[\upsilon_i | \mathbf{x}_{2i},a_i]
+\end{align}
+
+\begin{alignat}{2}
+ &E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]) (\upsilon_i - E[\upsilon_i | \mathbf{x}_{2i},a_i]) \, | \, \mathbf{x}_{2i},a_i] \nonumber \\
+ &= E[\mathbf{z}_i\upsilon_i | \mathbf{x}_{2i},a_i] - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]E[\upsilon_i | \mathbf{x}_{2i},a_i]        \nonumber \\
+ &= E[E[\mathbf{z}_i\upsilon_i | a_i,\mathbf{X}_{1N}, \mathbf{G}_{N}]|\mathbf{x}_{2i},a_i] - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]E[\upsilon_i | \mathbf{x}_{2i},a_i]	\nonumber \\
+ &= E[\mathbf{z}_iE[\upsilon_i | \mathbf{x}_{2i},a_i]|\mathbf{x}_{2i},a_i] - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]E[\upsilon_i | \mathbf{x}_{2i},a_i]	\nonumber \\
+ & = 0 
+\end{alignat}
+\subsection{Assumption 4 (Rank condition)} 
+  \begin{align}
+E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]) (\mathbf{w}_i - E[\mathbf{w}_i | \mathbf{x}_{2i},a_i])'] \, has \, full \, rank
+  \end{align}
+
+\begin{alignat}{2}
+0 &= E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i])(y_i - \mathbf{w}_i'\beta) - E[y_i - \mathbf{w}_i'\beta | \mathbf{x}_{2i},a_i] ]        \nonumber \\
+ &= E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i])(\mathbf{\upsilon}-E[\mathbf{\upsilon}_i | \mathbf{x}_{2i},a_i])'](\beta -\beta^0) + E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i])(\upsilon_i - E[\upsilon_i | \mathbf{x}_{2i},a_i])] \nonumber \\
+ &= E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i])(\mathbf{\upsilon}-E[\mathbf{\upsilon}_i | \mathbf{x}_{2i},a_i])'](\beta -\beta^0)	\nonumber \\
+ &\Leftrightarrow \beta = \beta^0
+\end{alignat}
+\subsection{Theorem 3.2} 
+$\beta^0$ is identified by moment condition 
+\begin{align}
+E[(\mathbf{z}_i - E[\mathbf{z}_i|\mathbf{x}_{2i},a_i]) (y_i - E[y_i | \mathbf{x}_{2i},a_i ] - (\mathbf{w}_i - E[\mathbf{w}_i | \mathbf{x}_{2i},a_i])'\beta)] = 0 \Leftrightarrow \beta = \beta^0
+\end{align}
+\subsection{General Case} 
+So far $\mathbf{x}_{1i} \cap \mathbf{x}_{2i} = \emptyset$, A more general case is when the regressor $\mathbf{x}_{1i}$ is consist of two component $\mathbf{x}_{1i} = (\mathbf{x}_{11i},\mathbf{x}_{12i})$, where $\mathbf{x}_{11i}$ does not share any elements with $\mathbf{x}_{2i}$ and $\mathbf{x}_{12i} \subset \mathbf{x}_{2i}$
+
+\section{Estimation}
+\subsection{with $a_i$ as control function}
+\begin{align}
+y_i - E[y_i|a_i] = (\mathbf{w}_i - E[\mathbf{w}_i|a_i])'\beta^0 + \upsilon_i - E[\upsilon_i | a_i]
+\end{align}
+
+Let $h(a_i) = (h^y(a_i),\mathbf{h}^w(a_i),\mathbf{h}^z(a_i)) := (E[y_i|a_i],E[\mathbf{w}_i|a_i],E[\mathbf{z}_i|a_i])$ and $\tilde{\mathbf{W}}_N = (\mathbf{w}_1 - \mathbf{h}^w(a_1),\dots,\mathbf{w}_N - \mathbf{h}^w(a_N))$, similarly define $\tilde{\mathbf{Z}}_N$, $\tilde{\mathbf{y}}_N$.
+
+Suppose that we observe $\mathbf{h}(a_i)$ as $E[(\mathbf{z}_i - E[\mathbf{z}_i|a_i]) (\upsilon_i - E[\upsilon_i | a_i])  | a_i]=0$,
+
+  \begin{align}
+\hat{\beta}_{2SLS}^{inf} = (\tilde{\mathbf{W}}_{N}'\tilde{\mathbf{Z}}_{N}(\tilde{\mathbf{Z}}_{N}'\tilde{\mathbf{Z}}_{N})^{-1}\tilde{\mathbf{Z}}_{N}'\tilde{\mathbf{W}}_{N})^{-1}\tilde{\mathbf{W}}_{N}'\tilde{\mathbf{Z}}_{N}(\tilde{\mathbf{Z}}_{N}'\tilde{\mathbf{Z}}_{N})^{-1}\tilde{\mathbf{Z}}_{N}'\tilde{\mathbf{y}}_{N}
+  \end{align}
+
+as $a_i$ is not observed and the function $\mathbf{h}(\cdot)$ are not known. A natural implementation of the infeasible estimator $\hat{\beta}_{2SLS}^{inf}$ is to replace $\mathbf{h}(a_i)$ in $\tilde{\mathbf{W}}_{N},\tilde{\mathbf{Z}}_{N}$ and $\tilde{\mathbf{y}}_{N}$ with its estimate, say $\hat{\mathbf{h}}(\hat{a}_i)$
+
+\begin{enumerate}[(i)]
+\item $h^l(a)$ is the $l^{th}$ element in $\mathbf{h}(a)$ for $l = 1,\dots,L$ where $L$ is the dimension of $(y_i,\mathbf{w}_i',\mathbf{z}_i')'$
+\item Sieve estimator $h^l(a) = 	\sum_{k=1}^{K_N} q_k(a)\alpha_k^l$
+\item $\mathbf{q}^K(a)=(q^1(a), \dots,q^{K_N}(a))$
+\item $\mathbf{Q}_N := \mathbf{Q}_n(\mathbf{a}_N) = (\mathbf{q}^K(a_1), \dots,\mathbf{q}^K(a_n))$
+\item $\mathbf{h}^l(\mathbf{a}_N) = (h^l(a_1),\dots,h^l(a_N))$
+\item $\boldsymbol{\alpha}_N^l = (\alpha_1^l,\dots,\alpha_{K_N}^l)$
+\item $b_i^l$ be the $l^{th}$ element in $(y_i,\mathbf{w}_i',\mathbf{z}_i')'$ and $\mathbf{b}_N^l = (b_1^l, \dots , b_N^l)$
+\end{enumerate}
+
+If $\mathbf{a}_N = (a_1, \dots, a_N)'$ is observed, we can estimate the unknown function $\mathbf{h}^l(\mathbf(a_N))$ by OLS of $b_i^l$ on $\mathbf{q}^K(a_i)$ for $l=1,\dots,L$
+\begin{align}
+\hat{\mathbf{h}}^l(\mathbf{a}_N) = \mathbf{P}_{\mathbf{Q}_N} \mathbf{b}_N^l
+\end{align}
+where $\mathbf{P}_{\mathbf{Q}_N} = \mathbf{Q}_N(\mathbf{Q}_N'\mathbf{Q}_N)^-\mathbf{Q}_N'$
+
+Suppose $\hat{\mathbf{a}}_N = (\hat{a}_1, \dots, \hat{a}_N)'$ is the estimator of  $\mathbf{a}_N = (a_1, \dots, a_N)'$. Denote $\hat{\mathbf{Q}}_N := \mathbf{Q}_n(\hat{\mathbf{a}}_N) = (\mathbf{q}^K(\hat{a}_1), \dots,\mathbf{q}^K(\hat{a}_N))$. Then the estimator of $\mathbf{h}^l(\mathbf(a_N))$ is defined by
+
+\begin{align}
+\hat{\mathbf{h}}^l := \hat{\mathbf{h}}^l(\hat{\mathbf{a}}_N) = \mathbf{P}_{\hat{\mathbf{Q}}_N} \mathbf{b}_N^l
+\end{align}
+for $l=1,\dots,L$, and the estimator of $\beta^0$ is
+  \begin{align}
+\hat{\beta}_{2SLS} =& (\mathbf{W}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{W}_{N})^{-1} \nonumber \\
+&\times \mathbf{W}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{Z}_{N}(\mathbf{Z}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{Z}_{N})^{-1}\mathbf{Z}_{N}'\mathbf{M}_{\hat{\mathbf{Q}}_N}\mathbf{y}_{N} 
+  \end{align}
+where $\mathbf{M}_{\hat{\mathbf{Q}}_N} = I_N - \mathbf{P}_{\hat{\mathbf{Q}}_N}$
+
+\subsection{with $(\mathbf{x}_{2i},a_i)$ as control function}
+Let $\hat{deg}_i$ be the degree of node $i$ scaled by the Network size
+  \begin{align}
+\hat{deg}_i := \frac{1}{N-1} \sum_{j=1,\neq j}^{N} d_{ij,N}
+  \end{align}
+Let $\phi*(\cdot)$ be the cdf of $u_{ij}$. Also let $\phi(\mathbf{x}_2,a)$ be the joint density function of $(\mathbf{x}_{2i},a_{i})$. Then for $(\mathbf{x}_{2i},a_{i})$, by the WLLN conditioning on $(\mathbf{x}_{2i},a_{i})$
+\begin{align}
+\hat{deg}_i &:= \frac{1}{N-1} \sum_{j=1,\neq j}^{N} I(g(t(\mathbf{x}_{2i},\mathbf{x}_{2j}),a_i,a_j))
+\end{align}
+\end{document}
