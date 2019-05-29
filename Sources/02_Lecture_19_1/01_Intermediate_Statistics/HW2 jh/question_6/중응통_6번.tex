@@ -1,0 +1,557 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Question 6}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}table}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{geyser.dat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{mat1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df1}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+        \PY{n}{mat2} \PY{o}{=} \PY{n}{mat1}\PY{p}{[}\PY{n}{mat1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{mat2}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([ 80,  71,  57,  80,  75,  77,  60,  86,  77,  56,  81,  50,  89,
+                54,  90,  73,  60,  83,  65,  82,  84,  54,  85,  58,  79,  57,
+                88,  68,  76,  78,  74,  85,  75,  65,  76,  58,  91,  50,  87,
+                48,  93,  54,  86,  53,  78,  52,  83,  60,  87,  49,  80,  60,
+                92,  43,  89,  60,  84,  69,  74,  71, 108,  50,  77,  57,  80,
+                61,  82,  48,  81,  73,  62,  79,  54,  80,  73,  81,  62,  81,
+                71,  79,  81,  74,  59,  81,  66,  87,  53,  80,  50,  87,  51,
+                82,  58,  81,  49,  92,  50,  88,  62,  93,  56,  89,  51,  79,
+                58,  82,  52,  88,  52,  78,  69,  75,  77,  53,  80,  55,  87,
+                53,  85,  61,  93,  54,  76,  80,  81,  59,  86,  78,  71,  77,
+                76,  94,  75,  50,  83,  82,  72,  77,  75,  65,  79,  72,  78,
+                77,  79,  75,  78,  64,  80,  49,  88,  54,  85,  51,  96,  50,
+                80,  78,  81,  72,  75,  78,  87,  69,  55,  83,  49,  82,  57,
+                84,  57,  84,  73,  78,  57,  79,  57,  90,  62,  87,  78,  52,
+                98,  48,  78,  79,  65,  84,  50,  83,  60,  80,  50,  88,  50,
+                84,  74,  76,  65,  89,  49,  88,  51,  78,  85,  65,  75,  77,
+                69,  92,  68,  87,  61,  81,  55,  93,  53,  84,  70,  73,  93,
+                50,  87,  77,  74,  72,  82,  74,  80,  49,  91,  53,  86,  49,
+                79,  89,  87,  76,  59,  80,  89,  45,  93,  72,  71,  54,  79,
+                74,  65,  78,  57,  87,  72,  84,  47,  84,  57,  87,  68,  86,
+                75,  73,  53,  82,  93,  77,  54,  96,  48,  89,  63,  84,  76,
+                62,  83,  50,  85,  78,  78,  81,  78,  76,  74,  81,  66,  84,
+                48,  93,  47,  87,  51,  78,  54,  87,  52,  85,  58,  88,  79])
+\end{Verbatim}
+            
+    \section{\texorpdfstring{Question (a) Draw the
+histogram}{Question (a)   Draw the histogram}}\label{question-a-draw-the-histogram}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{mat2}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of geyser data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+\newpage    
+    \section{\texorpdfstring{Question (b) Assume a normal distribution, and
+estimate the mean and standard
+deviation.}{Question (b)   Assume a normal distribution, and estimate the mean and standard deviation.}}\label{question-b-assume-a-normal-distribution-and-estimate-the-mean-and-standard-deviation.}
+
+    MLE of Normal distribution is
+
+\begin{align}
+\mu_{mle} & = \frac{1}{n}\sum_{j=1}^{n}x_j\\
+\sigma_{mle}^{2} & = \frac{1}{n}\sum_{j=1}^{n} (x_j-\mu_{mle})^{2} \\
+\end{align}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{mle\PYZus{}mean} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{mat2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mat2}\PY{p}{)}
+        \PY{n}{mle\PYZus{}std}  \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{mat2}\PY{o}{\PYZhy{}}\PY{n}{mle\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mat2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{estimated mean = }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mle\PYZus{}mean}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{estimated standard deviation = }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mle\PYZus{}std}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+estimated mean = 72.314381
+estimated standard deviation = 13.867077
+
+    \end{Verbatim}
+\newpage
+    \section{\texorpdfstring{Question (c) Gabsoon modelled the data as
+coming from a normal mixture. Use the EM algorithm and estimate
+params.}{Question (c)   Gabsoon modelled the data as coming from a normal mixture. Use the EM algorithm and estimate params.}}\label{question-c-gabsoon-modelled-the-data-as-coming-from-a-normal-mixture.-use-the-em-algorithm-and-estimate-params.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{w0} \PY{o}{=} \PY{l+m+mf}{0.5}
+        
+        \PY{n}{mu1} \PY{o}{=} \PY{l+m+mi}{40}
+        \PY{n}{sgm1} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{mu2} \PY{o}{=} \PY{l+m+mi}{70}
+        \PY{n}{sgm2} \PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{list\PYZus{}save} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+        \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+            \PY{n}{step}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+        
+            \PY{n}{density1} \PY{o}{=} \PY{n}{w0}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{mat2}\PY{p}{,}\PY{n}{mu1}\PY{p}{,}\PY{n}{sgm1}\PY{p}{)}
+            \PY{n}{density2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{w0}\PY{p}{)}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{mat2}\PY{p}{,}\PY{n}{mu2}\PY{p}{,}\PY{n}{sgm2}\PY{p}{)}
+            \PY{n}{density} \PY{o}{=} \PY{n}{density1}\PY{o}{+}\PY{n}{density2}
+            \PY{n}{prob1} \PY{o}{=} \PY{n}{density1}\PY{o}{/}\PY{n}{density}
+            \PY{n}{prob2} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{prob1}
+        
+            \PY{n}{w0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob1}\PY{p}{)}\PY{o}{/}\PY{n}{mat2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{mu1} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob1}\PY{o}{*}\PY{n}{mat2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob1}\PY{p}{)}
+            \PY{n}{mu2} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob2}\PY{o}{*}\PY{n}{mat2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob2}\PY{p}{)}
+            \PY{n}{sgm1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob1}\PY{o}{*}\PY{p}{(}\PY{n}{mat2}\PY{o}{\PYZhy{}}\PY{n}{mu1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{sgm2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob2}\PY{o}{*}\PY{p}{(}\PY{n}{mat2}\PY{o}{\PYZhy{}}\PY{n}{mu2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{prob2}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{step=}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, w0=}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{, mu1=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, sigma1=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, mu2=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, sigma2=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{step}\PY{p}{,} \PY{n}{w0}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{mu1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{sgm1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{mu2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{sgm2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{save1} \PY{o}{=} \PY{p}{[}\PY{n}{w0}\PY{p}{,}\PY{n}{mu1}\PY{p}{,}\PY{n}{sgm1}\PY{p}{,}\PY{n}{mu2}\PY{p}{,}\PY{n}{sgm2}\PY{p}{]}
+           
+            \PY{k}{if} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{save1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{list\PYZus{}save}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.001}\PY{p}{:} \PY{c+c1}{\PYZsh{} prevent infinite loop}
+                \PY{k}{break}
+            \PY{k}{else}\PY{p}{:}  
+                \PY{n}{list\PYZus{}save}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{save1}\PY{p}{)}
+                \PY{k}{continue}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+step=1, w0=0.185619, mu1=50.80, sigma1=2.52, mu2=77.22, sigma2=10.25
+step=2, w0=0.187226, mu1=51.22, sigma1=2.83, mu2=77.17, sigma2=10.42
+step=3, w0=0.196532, mu1=51.52, sigma1=3.08, mu2=77.40, sigma2=10.27
+step=4, w0=0.208542, mu1=51.81, sigma1=3.30, mu2=77.72, sigma2=10.00
+step=5, w0=0.221451, mu1=52.09, sigma1=3.50, mu2=78.07, sigma2=9.70
+step=6, w0=0.234318, mu1=52.37, sigma1=3.70, mu2=78.42, sigma2=9.38
+step=7, w0=0.246573, mu1=52.64, sigma1=3.88, mu2=78.75, sigma2=9.07
+step=8, w0=0.257808, mu1=52.90, sigma1=4.04, mu2=79.06, sigma2=8.77
+step=9, w0=0.267723, mu1=53.13, sigma1=4.19, mu2=79.33, sigma2=8.51
+step=10, w0=0.276141, mu1=53.34, sigma1=4.33, mu2=79.55, sigma2=8.29
+step=11, w0=0.283048, mu1=53.51, sigma1=4.44, mu2=79.74, sigma2=8.11
+step=12, w0=0.288570, mu1=53.66, sigma1=4.55, mu2=79.88, sigma2=7.97
+step=13, w0=0.292912, mu1=53.78, sigma1=4.63, mu2=79.99, sigma2=7.86
+step=14, w0=0.296292, mu1=53.87, sigma1=4.70, mu2=80.08, sigma2=7.77
+step=15, w0=0.298909, mu1=53.95, sigma1=4.75, mu2=80.15, sigma2=7.71
+step=16, w0=0.300930, mu1=54.00, sigma1=4.80, mu2=80.20, sigma2=7.66
+step=17, w0=0.302485, mu1=54.05, sigma1=4.83, mu2=80.24, sigma2=7.63
+step=18, w0=0.303681, mu1=54.09, sigma1=4.86, mu2=80.26, sigma2=7.60
+step=19, w0=0.304599, mu1=54.11, sigma1=4.88, mu2=80.29, sigma2=7.58
+step=20, w0=0.305303, mu1=54.13, sigma1=4.90, mu2=80.30, sigma2=7.56
+step=21, w0=0.305842, mu1=54.15, sigma1=4.91, mu2=80.32, sigma2=7.55
+step=22, w0=0.306255, mu1=54.16, sigma1=4.92, mu2=80.33, sigma2=7.54
+step=23, w0=0.306571, mu1=54.17, sigma1=4.93, mu2=80.34, sigma2=7.53
+step=24, w0=0.306812, mu1=54.18, sigma1=4.93, mu2=80.34, sigma2=7.53
+step=25, w0=0.306997, mu1=54.18, sigma1=4.94, mu2=80.35, sigma2=7.52
+step=26, w0=0.307138, mu1=54.19, sigma1=4.94, mu2=80.35, sigma2=7.52
+step=27, w0=0.307245, mu1=54.19, sigma1=4.94, mu2=80.35, sigma2=7.52
+step=28, w0=0.307328, mu1=54.19, sigma1=4.95, mu2=80.35, sigma2=7.51
+step=29, w0=0.307391, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+step=30, w0=0.307439, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+step=31, w0=0.307475, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+step=32, w0=0.307503, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+step=33, w0=0.307525, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+step=34, w0=0.307541, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+
+    \end{Verbatim}
+
+    \subsection{result}\label{result}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{step=}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, w0=}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{, mu1=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, sigma1=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, mu2=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{, sigma2=}\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{step}\PY{p}{,} \PY{n}{w0}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{mu1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{sgm1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{mu2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{sgm2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+step=34, w0=0.307541, mu1=54.20, sigma1=4.95, mu2=80.36, sigma2=7.51
+
+    \end{Verbatim}
+\newpage
+    \section{\texorpdfstring{Question (d) Which one is better, a normal
+distribution or a normal mixture distribution? Can you give a clear
+criterion?}{Question (d)   Which one is better, a normal distribution or a normal mixture distribution? Can you give a clear criterion?}}\label{question-d-which-one-is-better-a-normal-distribution-or-a-normal-mixture-distribution-can-you-give-a-clear-criterion}
+
+    \subsection{Likelihood of a Normal
+distribution}\label{likelihood-of-a-normal-distribution}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{part1} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{n1}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{n1}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{mle\PYZus{}std}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{part2} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{mle\PYZus{}std}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{part3} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{mat2}\PY{o}{\PYZhy{}}\PY{n}{mle\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{result1} \PY{o}{=} \PY{n}{part1}\PY{o}{+}\PY{n}{part2}\PY{o}{*}\PY{n}{part3}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log likelihood of a normal distribution: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{result1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Log likelihood of a normal distribution: -1210.488336
+
+    \end{Verbatim}
+
+    \subsection{Likelihood of a Normal Mixture
+distribution}\label{likelihood-of-a-normal-mixture-distribution}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{part1\PYZus{}mix} \PY{o}{=} \PY{n}{w0}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{mat2}\PY{p}{,}\PY{n}{mu1}\PY{p}{,}\PY{n}{sgm1}\PY{p}{)}
+         \PY{n}{part2\PYZus{}mix} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{w0}\PY{p}{)}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{mat2}\PY{p}{,}\PY{n}{mu2}\PY{p}{,}\PY{n}{sgm2}\PY{p}{)}
+         
+         \PY{n}{result2} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{part1\PYZus{}mix}\PY{o}{+}\PY{n}{part2\PYZus{}mix}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log likelihood of a normal mixture distribution: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{result2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Log likelihood of a normal mixture distribution: -1157.542021
+
+    \end{Verbatim}
+-1157.542021 \textgreater{} -1210.488336\\
+Log likelihood of a normal mixture distribution \textgreater{} Log likelihood of a normal distribution\\
+We can know that Normal Mixture Distribution is better model.
+\newpage
+    \subsection{plot}\label{plot}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{axis\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{)}
+\end{Verbatim}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{rnorm} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{axis\PYZus{}x}\PY{p}{,}\PY{n}{mle\PYZus{}mean}\PY{p}{,}\PY{n}{mle\PYZus{}std}\PY{p}{)}
+\end{Verbatim}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{density1} \PY{o}{=} \PY{n}{w0}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{axis\PYZus{}x}\PY{p}{,}\PY{n}{mu1}\PY{p}{,}\PY{n}{sgm1}\PY{p}{)}
+          \PY{n}{density2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{w0}\PY{p}{)}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{axis\PYZus{}x}\PY{p}{,}\PY{n}{mu2}\PY{p}{,}\PY{n}{sgm2}\PY{p}{)}
+          \PY{n}{density} \PY{o}{=} \PY{n}{density1}\PY{o}{+}\PY{n}{density2}
+\end{Verbatim}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{mat2}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{axis\PYZus{}x}\PY{p}{,} \PY{n}{rnorm}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{mat2}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{axis\PYZus{}x}\PY{p}{,} \PY{n}{density}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal Mixture dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can also know that normal mixture distribution is better from the
+histogram above.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

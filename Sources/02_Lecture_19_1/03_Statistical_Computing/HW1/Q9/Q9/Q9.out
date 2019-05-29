@@ -1,0 +1,8 @@
+\BOOKMARK [2][-]{subsection.0.1}{prior setting}{}% 1
+\BOOKMARK [1][-]{section.1}{\(a\) Derive MF variational distribution of \(\134mu, \134tau\) and ELBO}{}% 2
+\BOOKMARK [1][-]{section.2}{\(b\) derive the coordinate descent algorithm}{}% 3
+\BOOKMARK [1][-]{section.3}{\(c\) write down python code}{}% 4
+\BOOKMARK [1][-]{section.4}{\(d\) draw contour of the target posterior distribution and compare it with MFVB}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{VI Contour}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.2}{Posterior contour}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.3}{Compare}{section.4}% 8

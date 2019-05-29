@@ -1,0 +1,814 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{2018321084???HW2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}
+\end{Verbatim}
+
+
+    \section{Q3}\label{q3}
+
+\subsubsection{True value}\label{true-value}
+
+It is easy to compute integral term \[
+\theta = \int_{0}^{1} \frac{e^x-1}{e-1} dx = \frac{e-2}{e-1}
+\] Thus true value of \(\theta\) is \((e-2)/(e-1)\)
+
+    Fix the number of iteration \(n=1000\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1000}
+\end{Verbatim}
+
+
+    \subsection{(a) Cude Monte Carlo}\label{a-cude-monte-carlo}
+
+Let \(X = \{x_1, x_2 , \dots , x_n\}\) and \(x_i \sim^{iid} Unif(0,1)\)
+for \(i=1,\dots,n\)\\
+Suppose \(h(x) = \frac{e^x-1}{e-1}\) and \(f(x) =1\) \[
+\begin{align*}
+E_f[h(X)] =  \int_{0}^{1} \frac{e^x-1}{e-1} dx &\approx \frac{1}{n} \sum_{i=1}^{n}h(x_i)\\
+\hat{\theta}^{crude}&=\frac{1}{n}\sum_{i=1}^{n}\frac{e^x_i-1}{e-1}
+\end{align*}
+\]
+
+    \subsubsection{bias}\label{bias}
+
+\[
+bias_\theta (\hat{\theta}^{crude})= E[\hat{\theta}^{crude}] - \theta
+\] First calculate the expectation of \(\frac{e^x_i-1}{e-1}\). As
+\(x_i\)'s follow \(Unif(0,1)\) \[
+E_f\left[\frac{e^x_i-1}{e-1}\right] = \int_{0}^{1}\frac{e^x_i-1}{e-1}\cdot 1 dx_i = \frac{e-2}{e-1}
+\] Since, \(x_i\)'s are independent \[
+E[\hat{\theta}^{crude}] = \frac{1}{n}\sum_{i=1}^{n} E\left[\frac{e^x_i-1}{e-1}\right] = \frac{e-2}{e-1} = \theta
+\] Then bias of Cude Monte Carlo Estimator is \[
+bias_\theta (\hat{\theta}^{crude})= E[\hat{\theta}^{crude}] - \theta = 0
+\]
+
+    \subsubsection{variance}\label{variance}
+
+\[
+\begin{align*}
+Var[\hat{\theta}^{crude}]  &= Var\left[\frac{1}{n}\sum_{i=1}^{n}\frac{e^x_i-1}{e-1}\right]\\
+& = \frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}Var[e^x_i-1]\\
+& = \frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}Var[e^x_i]\\
+& = \frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}\left[ E[e^{2\cdot x_i}] - E[e^x_i]^2 \right]
+\end{align*}
+\] as \(x_i \sim Unif(0,1)\) we can use mgf of Unifrom distribution \[
+E_f[e^{tx}] = \frac{e^t -1}{t}
+\] Thus \[
+\begin{align*}
+Var_f[\hat{\theta}^{crude}] & = \frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}\left[ \frac{e^2-1}{2} - (e-1)^2 \right]\\
+&=\frac{1}{n (e-1)^2}\left[ \frac{e^2-1}{2} - (e-1)^2 \right]\\
+&=\frac{3-e}{2n(e-1)}
+\end{align*}
+\]
+
+    \subsubsection{MSE}\label{mse}
+
+\(mse = bias^2 + var\). Thus, \[
+MSE(\hat{\theta}^{crude}) = 0 + \frac{3-e}{2n(e-1)} = \frac{3-e}{2n(e-1)}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{CrudeMC}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{prt} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{theta} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+            \PY{n}{theta\PYZus{}hat} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{n}{mse} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{n}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{prt}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta estimator is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{theta\PYZus{}hat})
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{mse})
+            \PY{k}{return}\PY{p}{(}\PY{n}{theta\PYZus{}hat}\PY{p}{,}\PY{n}{mse}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{crude\PYZus{}est}\PY{p}{,}\PY{n}{crude\PYZus{}mse} \PY{o}{=} \PY{n}{CrudeMC}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+theta estimator is : 0.415960
+MSE is : 0.000082
+
+    \end{Verbatim}
+
+    \subsection{(b) Importance sampling}\label{b-importance-sampling}
+
+Let \(g(x)=\frac{e^{-t}}{1-e^{-1}}\). We need to sample from \(g(x)\)
+which follows truncated exponential distribution. We can use Inverse CDF
+method\\
+Suppose \(G(x)\) is CDF of \(g(x)\) then, \[
+\begin{align*}
+G(x) &= \int_{0}^{x}\frac{e^{-t}}{1-e^{-1}}dt = \frac{1 -e^{-x}}{1 -e^{-1}} \sim Unif(0,1)\\
+G^{-1}(U) &= -log \left(1-U(1-e^{-1})\right)
+\end{align*}
+\] When \(U\sim Unif(0,1)\), \(G^{-1}(U)\) follows truncated exponentail
+distribution\\
+Like Crude Monte Carlo method suppose \(h(x) = \frac{e^x-1}{e-1}\) and
+\(f(x) =1\) and \(x_i\)'s follows \(g(x)\) which is truncated
+exponential distribution
+
+    \[
+\begin{align*}
+\hat{\theta}^{Importance} = E_{g}\left[h(x)\frac{f(x)}{g(x)}\right] &\approx \frac{1}{n} \sum_{i=1}^{n}h(x_i)\frac{f(x_i)}{g(x_i)}\\
+&=\frac{1}{n} \sum_{i=1}^{n}\frac{e^{x_i}-1}{e^{-(x_i-1)}}
+\end{align*}
+\]
+
+    \subsubsection{bias}\label{bias}
+
+\[
+bias_\theta (\hat{\theta}^{Importance})= E[\hat{\theta}^{Importance}] - \theta
+\] First calculate the expectation of
+\(\frac{e^{x_i}-1}{e^{-(x_i-1)}}\)\\
+As \(x_i\)'s are iid sampled from pdf \(g(x)\) \[
+E_g\left[\frac{e^{x_i}-1}{e^{-(x_i-1)}}\right] =\int_{0}^{1}\frac{e^{x_i}-1}{e^{-(x_i-1)}}g(x_i)dx_i= \int_{0}^{1}\frac{e^x_i-1}{e-1}dx_i = \frac{e-2}{e-1}
+\] Since, \(x_i\)'s are independent \[
+E[\hat{\theta}^{Importance}] = \frac{1}{n}\sum_{i=1}^{n} E_g\left[\frac{e^{x_i}-1}{e^{-(x_i-1)}}\right] = \frac{e-2}{e-1} =\theta
+\] Then bias of Importance sampling is \[
+bias_\theta (\hat{\theta}^{Importance})= E[\hat{\theta}^{Importance}] - \theta = 0
+\]
+
+    \subsubsection{variance}\label{variance}
+
+\[
+\begin{align*}
+Var[\hat{\theta}^{Importance}]  &= Var\left[\sum_{i=1}^{n}\frac{e^{x_i}-1}{e^{-(x_i-1)}}\right]\\
+& = \frac{1}{n^2 e^2}\sum_{i=1}^{n}Var\left[\frac{e^{x_i}-1}{e^{-x_i}}\right]\\
+& = \frac{1}{n^2 e^2}\sum_{i=1}^{n}Var[e^{2x_i}-e^{x_i}]\\
+& = \frac{1}{n^2 e^2}\sum_{i=1}^{n}\left[ E_g[e^{4x_i}] - E_g[e^{2x_i}]^2 + E_g[e^{2x_i}] -E_g[e^{x_i}]^2 -2\left(E_g[e^{3x_i}] - E_g[e^{2x_i}]E_g[e^{x_i}]\right) \right]
+\end{align*}
+\] First calulate the MGF of g(x) \[
+M_x(t)=E_g[e^{tx}] = \int_{0}^{1}e^{tx}\frac{e^{-x}}{1-e^{-1}}dx = \frac{e^t-e}{(t-1)(e-1)}
+\] When \(t>1\) and \(M_x(1) = e/(e-1)\) Thus \[
+\begin{align*}
+Var_g[\hat{\theta}^{Importance}] & = \frac{1}{n e^2}\left[ M_x(4) - M_x(2)^2 + M_x(2) - M_x(1)^2 -2 \left( M_x(3) - M_x(2)M_x(1)\right)\right]\\
+\end{align*}
+\]
+
+    \subsubsection{MSE}\label{mse}
+
+\(mse = bias^2 + var\). Thus, \[
+\begin{align*}
+MSE(\hat{\theta}^{Importance}) &= 0 +\frac{1}{n e^2}\left[ M_x(4) - M_x(2)^2 + M_x(2) - M_x(1)^2 -2 \left( M_x(3) - M_x(2)M_x(1)\right)\right]\\ &= \frac{1}{n e^2}\left[ M_x(4) - M_x(2)^2 + M_x(2) - M_x(1)^2 -2 \left( M_x(3) - M_x(2)M_x(1)\right)\right]
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{Samplegx}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{n}{U} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+            \PY{n}{X} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{U}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{mgfgx}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{t}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{t}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{out} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{t}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{importance}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{prt} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{X} \PY{o}{=} \PY{n}{Samplegx}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+            \PY{n}{theta\PYZus{}hat} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{n}{mse} \PY{o}{=} \PY{p}{(}\PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{mgfgx}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{prt}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta estimator is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{theta\PYZus{}hat})
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{mse})
+            \PY{k}{return}\PY{p}{(}\PY{n}{theta\PYZus{}hat}\PY{p}{,}\PY{n}{mse}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{imps\PYZus{}est}\PY{p}{,}\PY{n}{imps\PYZus{}mse} \PY{o}{=} \PY{n}{importance}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{(c) Control Variates}\label{c-control-variates}
+
+    as (a) Suppose \(h(x) = \frac{e^x-1}{e-1}\), \(f(x) =1\) and
+\(g(x)=\frac{x}{e-1}\) \[
+\begin{align*}
+ E_f[h(X)]&=E_f[g(X)] + E_f[h(X)-g(X)]\\
+\hat{\theta}^{CV} &= E_f[g(X)] +\frac{1}{n}\sum_{i=1}^{n}\left( h(x_i) -g(x_i) \right)\\
+&=\frac{1}{2(e-1)} + \frac{1}{n(e-1)}\sum_{i=1}^{n} (e^{x_i}-x_i -1)
+\end{align*}
+\]
+
+    \subsubsection{bias}\label{bias}
+
+\[
+E_f[x] = 0.5
+\] From (a) \[
+E_f[e^{tx}] = \frac{e^t -1}{t}
+\] Thus \[
+E\left[\hat{\theta}^{CV}\right] = \frac{1}{2(e-1)} + \frac{1}{n(e-1)}\sum_{i=1}^{n}\left( E\left[e^{x_i}\right] - E\left[x_i\right] -1\right) = \frac{e-2}{e-1} = \theta
+\] Then bias of Control variates is \[
+bias_\theta (\hat{\theta}^{CV})= E[\hat{\theta}^{CV}] - \theta = 0
+\]
+
+    \subsubsection{variance}\label{variance}
+
+as \(x_i\)'s follows \(Unif(0,1)\) \[
+\begin{align*}
+E[x_i^2] &= var[x_i] + E[x_i]^2 = \frac{1}{3}\\
+E[e^{x_i}x_i] &= \int_{0}^{1} e^{x_i}x_i dx_i = 1
+\end{align*}
+\] Variance of Control variates estimator is \[
+\begin{align*}
+Var_f[\hat{\theta}^{CV}] & = \frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}Var_f\left[e^{x_i} - x_i -1\right]\\
+&=\frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}Var_f\left[e^{x_i} - x_i\right]\\
+&=\frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}Var_f\left[e^{x_i} - x_i\right]\\
+&=\frac{1}{n^2 (e-1)^2}\sum_{i=1}^{n}\left[E_f[e^{2x_i}]-E_f[e^{x_i}]^2 + E_f[x_i^2] - E_f[x_i]^2 - 2\left(E[e^{x_i}x_i] - E_f[e^{x_i}]E_f[x_i]\right)\right]\\
+&=\frac{1}{n (e-1)^2}\left[ (e-1)\left( \frac{5-e}{2}\right) - \frac{23}{12} \right]
+\end{align*}
+\]
+
+    \subsubsection{MSE}\label{mse}
+
+\(mse = bias^2 + var\). Thus, \[
+\begin{align*}
+MSE(\hat{\theta}^{CV}) &= 0 + \frac{1}{n (e-1)^2}\left[ (e-1)\left( \frac{5-e}{2}\right) - \frac{23}{12} \right]\\ 
+&= \frac{1}{n (e-1)^2}\left[ (e-1)\left( \frac{5-e}{2}\right) - \frac{23}{12} \right]
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{ControlVariates}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{prt} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{theta} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+            \PY{n}{theta\PYZus{}hat} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{X} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{mse} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{23}\PY{o}{/}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{if} \PY{n}{prt}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta estimator is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{theta\PYZus{}hat})
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{mse})
+            \PY{k}{return}\PY{p}{(}\PY{n}{theta\PYZus{}hat}\PY{p}{,}\PY{n}{mse}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{CV\PYZus{}est} \PY{p}{,} \PY{n}{CV\PYZus{}mse} \PY{o}{=} \PY{n}{ControlVariates}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+theta estimator is : 0.423796
+MSE is : 0.000015
+
+    \end{Verbatim}
+
+    \subsection{Antithetic Variates}\label{antithetic-variates}
+
+As \(x\sim Unif(0,1)\), \(1-x \sim Unif(0,1)\). Thus \[
+\begin{align*}
+\hat{\theta}^{Antithetic} & = \frac{1}{2n}\sum_{i=1}^{n} \left[ h(x_i) - h(1-x_i) \right]\\
+&= \frac{1}{2n}\sum_{i=1}^{n}\frac{e^{x_i} + e^{1-x_i} -2}{e-1}
+\end{align*}
+\]
+
+    \subsubsection{bias}\label{bias}
+
+As \(x\sim Unif(0,1)\), \(1-x \sim Unif(0,1)\). Thus \[
+E[e^{x-i}] = E[e^{1-x_i}] = e-1
+\] Therefore \[
+\begin{align*}
+E[\hat{\theta}^{Antithetic}]&= E\left[\frac{1}{2n}\sum_{i=1}^{n}\frac{e^{x_i} + e^{1-x_i} -2}{e-1}\right]\\
+& = \frac{1}{2n}\sum_{i=1}^{n}\frac{E[e^{x_i}] + E[e^{1-x_i}] -2}{e-1}\\
+& = \frac{e-2}{e-1} = \theta
+\end{align*}
+\] Then bias of Antithetic variates is \[
+bias_\theta (\hat{\theta}^{Antithetic})= E[\hat{\theta}^{Antithetic}] - \theta = 0
+\]
+
+    \subsubsection{variance}\label{variance}
+
+as \(x_i\)'s follows \(Unif(0,1)\) and \(1-x_i\)'s follows \(Unif(0,1)\)
+We can use same expectation and mgf\\
+Variance of Antithetic variates estimator is \[
+\begin{align*}
+Var_f[\hat{\theta}^{Antithetic}] & = \frac{1}{4n^2 (e-1)^2}\sum_{i=1}^{n}Var_f\left[e^{x_i} - e^{1-x_i} -2\right]\\
+&= \frac{1}{4n^2 (e-1)^2}\sum_{i=1}^{n}Var_f\left[e^{x_i} - e^{1-x_i}\right]\\
+&=\frac{1}{4n^2 (e-1)^2}\sum_{i=1}^{n}2\left[E_f[e^{2x_i}]-E_f[e^{x_i}]^2 -\left(E[e] - E_f[e^{x_i}]^2\right)\right]\\
+&=\frac{1}{4n (e-1)^2}\left[e^2-1 -4(e-1)^2 + 2e\right]\\
+&=\frac{1}{4n (e-1)^2}\left[-3e^2 + 10e -5\right]
+\end{align*}
+\]
+
+    \subsubsection{MSE}\label{mse}
+
+\(mse = bias^2 + var\). Thus, \[
+\begin{align*}
+MSE(\hat{\theta}^{Antithetic}) &= 0 + \frac{1}{4n (e-1)^2}\left[-3e^2 + 10e -5\right]\\ 
+&= \frac{1}{4n (e-1)^2}\left[-3e^2 + 10e -5\right]
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{Antithetic}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{prt} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{theta} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+             \PY{n}{theta\PYZus{}hat} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+             \PY{n}{mse} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{10} \PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{n}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n}{prt}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta estimator is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{theta\PYZus{}hat})
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{mse})
+             \PY{k}{return}\PY{p}{(}\PY{n}{theta\PYZus{}hat}\PY{p}{,}\PY{n}{mse}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ant\PYZus{}est}\PY{p}{,} \PY{n}{ant\PYZus{}mse} \PY{o}{=} \PY{n}{Antithetic}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+theta estimator is : 0.416557
+MSE is : 0.000001
+
+    \end{Verbatim}
+
+    \subsection{Comparison}\label{comparison}
+
+MSE of (a) \textasciitilde{} (c) methods can be used for comparison of
+efficiency when sample size \(n\) is fixed
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{comp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{n}{CrudeMC}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{,}\PY{n}{importance}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{,}\PY{n}{ControlVariates}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{,}\PY{n}{Antithetic}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{comp}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crude Monte Carlo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Importance sampling}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Control variates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Antithetic variates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{comp}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Point Estimator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{base} \PY{o}{=} \PY{n}{comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crude Monte Carlo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Efficiency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{base}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{comp}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+                     Point Estimator       MSE  Efficiency
+True Theta                  0.418023  0.000000    0.000000
+Crude Monte Carlo           0.422746  0.000082    1.000000
+Importance sampling         0.401052  0.000187    2.284921
+ Control variates           0.425319  0.000015    0.180349
+Antithetic variates         0.417701  0.000001    0.016165
+    \end{verbatim}
+
+    
+    As all methods are unbiased estimator we can conclude the efficiency by
+MSE. Antithetic variates method is most efficiency. Second is Control
+variates method. Third is Crude Monte Carlo mehod. Importance sampling
+shows worst efficiency
+
+    \section{Q4}\label{q4}
+
+Define the varibles \[
+\begin{align*}
+h(X) = I(X>c)\\
+f(X) = \phi(X)\\
+g(X) = \phi(X-b)
+\end{align*}
+\] where \(\phi(\cdot)\) denotes a standard normal density function \[
+\begin{align*}
+p &= E_f[h(Z)] = E_g \left[ h(Z)\frac{f(Z)}{g(Z)}\right]\\
+&\approx \frac{1}{n} \sum_{i=1}^{n}h(z_i)\frac{f(z_i)}{g(z_i)} = \tilde{p}(b)
+\end{align*} 
+\]
+
+    \subsection{\texorpdfstring{(a) find
+\(b^*\)}{(a) find b\^{}*}}\label{a-find-b}
+
+\[
+\begin{align*}
+Var[\tilde{p}(b)] &\propto var_g\left(h(z)\frac{f(z)}{g(z))}\right) \\
+&=\frac{1}{n^2} \sum_{i=1}^{n}\left\{E_g\left[\left(h(z_i)\frac{f(z_i)}{g(z_i)}\right)^2\right] - E_g\left[h(z_i)\frac{f(z_i)}{g(z_i)}\right]^2\right\}
+\end{align*}
+\] When \(S(\cdot)\) be the survival function for a standard normal
+distribution \[
+\begin{align*}
+E_g\left[\left(h(z_i)\frac{f(z_i)}{g(z_i)}\right)^2\right] &= e^{b^2}\int_{-\infty}^{\infty} I(z_i > c) \phi(z_i) dz_i = e^{b^2} S(c+b)\\
+E_g\left[h(z_i)\frac{f(z_i)}{g(z_i)}\right] &= E_f[h(z_i)] = S(c)
+\end{align*}
+\] Thus, \[
+\begin{align*}
+Var_g[\tilde{p}(b)] &= \frac{1}{n^2} \sum_{i=1}^{n} \left[ e^{b^2} S(c+b) - S^2(c)\right]\\
+&=\frac{1}{n}\left[ e^{b^2} S(c+b) - S^2(c)\right]\\
+\end{align*}
+\] \(Var_g[\tilde{p}(b)]\) minimized when
+\(\partial Var_g[\tilde{p}(b)] / \partial b\) \[
+\begin{align*}
+\frac{\partial Var_g[\tilde{p}(b)]}{ \partial b}&=^{let}0\\
+2b \cdot e^{b^2}S(b+c) - e^{b^2}\phi(b+c)&=0\\
+\end{align*}
+\] Therefore condition for \(b^*\) that minimize \(Var_g[\tilde{p}(b)]\)
+is, \[
+2b \cdot e^{b^2}S(b+c) - e^{b^2}\phi(b+c)=0\\
+\rightarrow2b^*\cdot S(b^*+c) = \phi(b^*+c)
+\]
+
+    \subsection{(b) Find boundary
+condition}\label{b-find-boundary-condition}
+
+From (a) \[
+\frac{S(b^*+c)}{\phi(b^*+c)} = \frac{1}{2b^*}
+\] Use Mills' ratio \[
+\begin{align*}
+&\frac{1}{b^*+c}\left(1 - \frac{1}{(b^*+c)^2}\right) \ge \frac{1}{2b^*} \ge \frac{1}{b^*+c}\\
+\rightarrow&\frac{2(b^*+c)^2-2}{(b^*+c)^3}\ge \frac{1}{b^*} \ge \frac{2}{b^*+c}\\
+\rightarrow&\frac{b^*+c}{2} \ge b^* \ge\frac{(b^*+c)^3}{2(b^*+c)^2-2}
+\end{align*}
+\] Thus boundary conditons for \(b^*\) is \[
+c \le b^* \text{ and}\\
+\frac{(b^*-c)(b^*+c)^2}{2} \le b^*
+\]
+
+    \subsection{(c) bisection method}\label{c-bisection-method}
+
+    Let \(b^* = c+ \epsilon\), where \(\epsilon >0\) and \(c>0\) Then, \[
+\begin{align*}
+0 \le \frac{(b^*-c)(b^*+c)^2}{2} &= \frac{\epsilon (2c + \epsilon)^2}{2} \le c + \epsilon\\
+&\rightarrow 0\le \epsilon(4c^2 + 4c\epsilon + \epsilon^2) \le 2c + 2\epsilon\\
+&\rightarrow 0 \le 4\epsilon c^2 +4\epsilon^2c + \epsilon^3 \le 2c + 2\epsilon\\
+&\rightarrow 0 \le 4 c^2 +4\epsilon c + \epsilon^2 \le 2\frac{c}{\epsilon} + 2\\
+&\rightarrow 0 \le \frac{c}{\epsilon} +1 -2\epsilon c
+\end{align*}
+\] When \(0 \le \frac{c}{\epsilon} -2\epsilon c\),
+\(\frac{c}{\epsilon} +1 -2\epsilon c\) always larger than 0 \[
+\begin{align*}
+0 &\le \frac{c}{\epsilon} -2\epsilon c\\
+\rightarrow 0&\le \frac{1}{\epsilon} -2 \epsilon\\
+\rightarrow 0 &\le \epsilon \le \frac{1}{\sqrt{2}}
+\end{align*}
+\] So, we can setting the upper bound of bisection as
+\(c + \frac{1}{\sqrt{2}}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{bisection\PYZus{}test}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return}\PY{p}{(}\PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{sf}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{c}\PY{p}{)}\PY{o}{/}\PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{b}\PY{o}{+}\PY{n}{c}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{b}\PY{p}{)}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{bisection}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{criteria} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lower}\PY{o}{=} \PY{n}{c}
+             \PY{n}{upper}\PY{o}{=} \PY{n}{c}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{while} \PY{k+kc}{True}\PY{p}{:} 
+                 \PY{n}{bstar} \PY{o}{=} \PY{p}{(}\PY{n}{lower}\PY{o}{+}\PY{n}{upper}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+                 \PY{k}{if} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{bisection\PYZus{}test}\PY{p}{(}\PY{n}{bstar}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{n}{criteria}\PY{p}{:}
+                     \PY{k}{return}\PY{p}{(}\PY{n}{bstar}\PY{p}{)}
+                     \PY{k}{break}
+                 \PY{k}{elif} \PY{n}{bisection\PYZus{}test}\PY{p}{(}\PY{n}{lower}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{o}{*}\PY{n}{bisection\PYZus{}test}\PY{p}{(}\PY{n}{bstar}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{upper} \PY{o}{=} \PY{n}{bstar}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{lower} \PY{o}{=} \PY{n}{bstar}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{When c = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, b* : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{bisection}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+When c = 2, b* : 2.215929
+When c = 3, b* : 3.154852
+When c = 4, b* : 4.119678
+
+    \end{Verbatim}
+
+    When \(c= 2,3\) and \(4\)\\
+\(b^* = 2.215931,3.154846\) and \(4.119675\)
+
+    \subsection{(d) Calculate the
+efficiency}\label{d-calculate-the-efficiency}
+
+We know that \$\hat{p} =\tilde{p}(0) \$.\\
+From (a) \[
+\begin{align*}
+Var_g[\tilde{p}(b)] &= \frac{1}{n^2} \sum_{i=1}^{n} \left[ e^{b^2} S(c+b) - S^2(c)\right]\\
+&=\frac{1}{n}\left[ e^{b^2} S(c+b) - S^2(c)\right]\\
+\end{align*}
+\] Thus, \[
+Efficiency = \frac{Var[\hat{p}]}{Var[\tilde{p}(b^*)]} =\frac{ S(c) - S^2(c)}{e^{{b^*}^2} S(c+b^*) - S^2(c)}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{varatio}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+             \PY{n}{out} \PY{o}{=} \PY{p}{(}\PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{sf}\PY{p}{(}\PY{n}{c}\PY{p}{)} \PY{o}{\PYZhy{}} 
+                    \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{sf}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/} \PYZbs{}
+                   \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{b}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{sf}\PY{p}{(}\PY{n}{c}\PY{o}{+}\PY{n}{b}\PY{p}{)} 
+                    \PY{o}{\PYZhy{}} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{sf}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Efficiency when c = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ is : }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{varatio}\PY{p}{(}\PY{n}{bisection}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Efficiency when c = 2 is : 19.001601
+Efficiency when c = 3 is : 221.916501
+Efficiency when c = 4 is : 7061.451247
+
+    \end{Verbatim}
+
+    When \(c= 2,3\) and \(4\)\\
+\(Efficiency = 19.001601,221.916501\) and \(7061.451247\)
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,7 @@
+\BOOKMARK [3][-]{subsubsection.0.0.1}{import modules}{}% 1
+\BOOKMARK [3][-]{subsubsection.0.0.2}{Define sigmoid function and E \(error\) function}{}% 2
+\BOOKMARK [3][-]{subsubsection.0.0.3}{Set X and y}{}% 3
+\BOOKMARK [2][-]{subsection.0.1}{\(a\) start initail values and calculate h\137i,o, E}{}% 4
+\BOOKMARK [2][-]{subsection.0.2}{\(b\) Update w\137i's and o and E}{}% 5
+\BOOKMARK [2][-]{subsection.0.3}{\(c\) Update a\137i's and b\137i's and o and E}{}% 6
+\BOOKMARK [2][-]{subsection.0.4}{\(d\) Repeat 10000 times}{}% 7

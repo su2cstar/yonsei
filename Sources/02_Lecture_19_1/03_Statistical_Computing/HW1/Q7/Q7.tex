@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Q7}
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+
+
+
+\section*{(a) Derive Newton's Method}
+\begin{align*}
+L(\theta | Y) &= \prod_{i=1}^{n} P (y_i | \theta)\\
+& = \prod_{i=1}^{n} \frac{(\theta+1)^{y_i} e ^{-(\theta + 1)}}{y_i !}\\
+l(\theta | Y) &= log(\theta+1)\sum_{i=1}^{n}y_i -n(\theta +1) - \sum_{i=1}^{n} log(y_i!)
+\end{align*}
+First and Second derivative is
+\begin{align*}
+\frac{\partial l(\theta|Y)}{\partial \theta} &=\frac{\sum_{i=1}^{n}y_i}{\theta +1} - n\\
+\frac{\partial^2 l(\theta|Y)}{\partial \theta^2}&= - \frac{\sum_{i=1}^{n}y_i}{(\theta + 1)^2}
+\end{align*}
+So we can optimize $\theta$ by iteratation
+\begin{align*}
+\theta^{(t+1)} &= \theta^{(t)} - \left[ \frac{\partial^2 l(\theta^{(t)}|Y)}{\partial {\theta^{(t)}}^2}\right]^{-1} \frac{\partial l(\theta^{(t)} | Y)}{\partial \theta^{(t)}}\\
+&= 1 + 2\theta^{(t)} - \frac{n(\theta+1)^2}{\sum_{i=1}^{n}y_i}
+\end{align*}
+\section*{(b) Scoring method}
+Since $y_i \sim Poisson(\theta +1)$, $E[y_i] = \theta + 1$. Then, 
+\begin{align*}
+I(\theta) = E\left[- \frac{\partial^2 l(\theta|Y)}{\partial \theta^2}\right] & =\frac{\sum_{i=1}^{n}E[y_i]}{(\theta + 1)^2}\\
+&=\frac{n}{\theta + 1}
+\end{align*}
+So we can optimize $\theta$ by iteratation
+\begin{align*}
+\theta^{(t+1)} &= \theta^{(t)} - \left[ I(\theta^{(t)})\right]^{-1} \frac{\partial l(\theta^{(t)} | Y)}{\partial \theta^{(t)}}\\
+&= \frac{\sum_{i=1}^{n}y_i}{n} -1
+\end{align*}
+\section*{(c) Derive EM}
+Treat $s_i$'s as missing data
+\begin{align*}
+L(\theta | S, Y) & = \prod_{i=1}^{n}P(S,Y|\theta)\\
+&=\prod_{i=1}^{n} P(Y|S,\theta) P(S|\theta) \\
+&=\prod_{i=1}^{n}\frac{e^{-1}}{(y_i-s_i)!} \frac{\theta^{s_i}e^{-\theta}}{s_i!}\\
+&= e^{-n(1+\theta)} \cdot \theta^{\sum_{i=1}^{n}s_i} \cdot \prod_{i=1}^{n}\frac{1}{(y_i-s_i)! \cdot s_i!}
+\end{align*}
+Then Log likelihood is
+\begin{align*}
+l(\theta | S,Y) = -n(1+\theta) + \sum_{i=1}^{n} s_i log(\theta)
+\end{align*}
+\subsection{E-step}
+\begin{align*}
+Q(\theta| \theta^{(t)}) &= E [l(\theta | Y_{com})| Y_{obs}, \theta^{(t)}]\\
+&=-n(1+\theta) + \sum_{i=1}^{n} E[s_i| Y_{obs}, \theta^{(t)}] log(\theta)
+\end{align*}
+PMF of $s_i|Y_{obs},\theta^{(t)}$ is
+\begin{align*}
+P(s_i|Y_{obs}=y_i,\theta^{(t)}) &= \frac{P(s_i,y_i|\theta^{(t)})}{P(y_i|\theta^{(t)})}\\
+&= \frac{{\theta^{(t)}}^{s_i} e^{-\theta^{(t)}}}{s_i!} \cdot \frac{e^{-1}}{(y_i-s_i)!} \cdot \left[ \frac{(\theta^{(t)}+1)^{y_i} e ^{-(\theta^{(t)} + 1)}}{y_i !}\right]^{-1}\\
+&= \frac{y_i!}{(y_i-s_i)!s_i!} \left(\frac{\theta^{(t)}}{\theta^{(t)} +1}\right)^{s_i} \left(\frac{1}{\theta^{(t)} +1}\right)^{y_i - s_i}
+\end{align*}
+Thus $s_i|Y_{obs}=y_i,\theta^{(t)} \sim Binomial\left(y_i,\frac{\theta^{(t)}}{\theta^{(t)} + 1}\right)$, Then $E[s_i| Y_{obs}, \theta^{(t)}]= y_i\cdot\frac{\theta^{(t)}}{\theta^{(t)} + 1}$
+\subsection{M-step}
+\begin{align*}
+Q(\theta | \theta^{(t)}) = -n(1+\theta) + log\theta \cdot \sum_{i=1}^{n}y_i\cdot\frac{\theta^{(t)}}{\theta^{(t)} + 1}
+\end{align*}
+Maximize the $Q$function by letting the first derivative 0
+\begin{align*}
+\frac{\partial Q(\theta | \theta^{(t)})}{\partial \theta} &=^{let} 0\\
+&=-n + \frac{\sum_{i=1}^{n}y_i\cdot\frac{\theta^{(t)}}{\theta^{(t)} + 1}}{\theta}\\
+\theta^{(t+1)} &= \frac{\sum_{i=1}^{n}y_i}{n}\cdot \frac{\theta^{(t)}}{\theta^{(t)} + 1}
+\end{align*}
+We can get the $\hat{\theta}$ by iterate the E-step and M-step
+\section*{(d) EM algorithm has unique solution}
+EM algorithm converges when $\theta^{(t+1)} = \theta^{(t)}$
+\begin{align*}
+\hat{\theta} &= \frac{\sum_{i=1}^{n}y_i}{n}\cdot \frac{\hat{\theta}}{\hat{\theta} + 1}\\
+\hat{\theta} &= \frac{\sum_{i=1}^{n}y_i}{n} - 1
+\end{align*}
+which does not depend on $\theta^{(t)}$. it means that regardless inital value EM-algorithm converge to unique solution
+\section*{(e) find the convergence rate of the EM}
+as $M(\theta) = \frac{\sum_{i=1}^{n}y_i}{n}\cdot \frac{\theta}{\theta+ 1} $
+\begin{align*}
+DM(\theta) &= \frac{\partial M(\theta)}{\partial \theta} \\
+&= \frac{\sum_{i=1}^{n}y_i}{n\cdot (\theta + 1)^2}
+\end{align*}
+\section*{(f) Compute $V_{obs}(\hat{\theta})$ using Louis' method}
+from (c) $s_i|Y_{obs}=y_i,\theta^{(t)} \sim Binomial\left(y_i,\frac{\theta^{(t)}}{\theta^{(t)} + 1}\right)$. Then,
+\begin{align*}
+E[s_i| Y_{obs}, \theta]= y_i\cdot\frac{\theta}{\theta + 1}\\
+V[s_i| Y_{obs}, \theta]= y_i\cdot\frac{\theta}{(\theta + 1)^2}
+\end{align*}
+First compute the $I_{com} = E[-l''(\theta|Y_{com})|Y_{obs},\theta]$
+\begin{align*}
+E[-l''(\theta|Y_{com})|Y_{obs},\theta] &= \frac{\partial^2(n(1+\theta) -log\theta \sum_{i=1}^{n}E[s_i|Y_{obs},\theta]))}{\partial \theta^2}\\
+&=\frac{1}{\theta^2} \sum_{i=1}^{n}y_i\cdot\frac{\theta}{\theta + 1}\\
+&=\frac{1}{\theta(\theta +1)}\sum_{i=1}^{n}y_i
+\end{align*}
+Second compute $Var(l'(\theta|Y_{com})|Y_{obs},\theta)$
+\begin{align*}
+Var(l'(\theta|Y_{com})|Y_{obs},\theta) & = Var\left(-n + \frac{1}{\theta} \sum_{i=1}^{n}s_i|Y_{obs},\theta\right)\\
+&=\frac{1}{\theta^2} \sum_{i=1}^{n} Var(s_i | Y_{obs},\theta)\\
+&=\frac{1}{\theta^2}\sum_{i=1}^{n}y_i\cdot\frac{\theta}{(\theta + 1)^2}\\
+&=\frac{1}{\theta(\theta + 1)} \sum_{i=1}^{n}y_i
+\end{align*}
+as $I_{obs} = I_{com} - Var(l'(\theta|Y_{com})|Y_{obs},\theta)$
+\begin{align*}
+I_{obs} = I_{com} - Var(l'(\theta|Y_{com})|Y_{obs},\theta) &= \frac{1}{\theta(\theta +1)}\sum_{i=1}^{n}y_i - \frac{1}{\theta(\theta + 1)} \sum_{i=1}^{n}y_i\\
+&=\frac{1}{(\theta+1)^2}\sum_{i=1}^{n}y_i
+\end{align*}
+Thus,
+\begin{align*}
+V_{obs} = I_{obs}^{-1} = \frac{(\theta +1)^2}{\sum_{i=1}^{n}y_i}
+\end{align*} 
+Then,
+\begin{align*}
+V_{obs} (\hat{\theta})= \frac{(\hat{\theta} +1)^2}{\sum_{i=1}^{n}y_i}
+\end{align*}
+where $\hat{\theta} = \frac{\sum_{i=1}^{n}y_i}{n} - 1$
+\begin{align*}
+V_{obs} (\hat{\theta})&= \frac{(\hat{\theta} +1)^2}{\sum_{i=1}^{n}y_i}\\
+&=\frac{1}{n^2}\sum_{i=1}^{n}y_i
+\end{align*}
+\section*{(f) Compute $V_{obs}(\hat{\theta})$ using SEM}
+$V_{obs}(\hat{\theta}) = \left[(1-DM(\hat{\theta}))I_{com}\right]^{-1}$ from (e) and (f) we already computed $DM(\hat{\theta})$ and $I_{com}$
+\begin{align*}
+V_{obs}(\hat{\theta}) &= \left[(1-DM(\hat{\theta}))I_{com}\right]^{-1}\\
+&=\left[\left(1-\frac{\sum_{i=1}^{n}y_i}{n(1+\hat{\theta})^2}\right) \frac{1}{\hat{\theta}(\hat{\theta} +1)}\sum_{i=1}^{n}y_i\right]^{-1}\\
+\end{align*}
+where $\hat{\theta} = \frac{\sum_{i=1}^{n}y_i}{n} - 1$. Then,
+\begin{align*}
+V_{obs}(\hat{\theta}) &=\left(1-\frac{n}{\sum_{i=1}^{n}y_i}\right)\frac{n}{\frac{\sum_{i=1}^{n}y_i}{n} -1}\\
+&=\left(\frac{\sum_{i=1}^{n}y_i - n}{\sum_{i=1}^{n}y_i}\right)\frac{n^2}{\sum_{i=1}^{n}y_i -n}\\
+&=\frac{n^2}{\sum_{i=1}^{n}y_i}
+\end{align*}
+
+\end{document}

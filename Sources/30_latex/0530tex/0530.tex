@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf May 30, 2019 }
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+\section{Summary}
+Random effects to have a nonparametric prior distribution with Dirichlet process prior.
+\section{Introduction}
+Individual $i$ with $n_i$ repeated measurements.
+\begin{align*}
+y_i = X_i \beta + Z_i b_i + e_i \;\;\;\;\ i, \dots n
+\end{align*}
+\begin{itemize}
+	\item $y_i$ is $n_i \times1$
+	\item $X_i$ is $n_i \times p$ matrix of fixed covariates
+	\item $\beta$ is $p \times1$ regression coefficients parameter vector
+	\item $Z_i$ is $n_i \times v$ covariates 
+	\item $b_i \sim N_v(0,D)$ is $v \times1$ random effects
+	\item $e_i \sim N_{ni}(0,\sigma^2 I_{n_i})$ is $n_i \times1$ vector of errors 
+	\item $e_i$ and $b_i$ are independent
+\end{itemize}
+Under these assumption, assumes a distinct set of regression coefficients for each individual once the random effects are known
+\begin{align*}
+y_i | \beta,b_i \sim N_{n_i}(X_i \beta + Z_i b_i , \sigma^2 I_{n_i})
+\end{align*}
+The distribution of random effects is usually taken to be normal. marginally
+\begin{align*}
+y_i | \beta ,\sigma^2, D \sim N_{n_i}(X_i\beta, Z_iDZ_i' + \sigma^2I_{n_i})
+\end{align*}
+Bayesian inference for $\beta$ using the marginal likelihood will depend only on$(y_,\sigma^2,D)$ But the nature of this dependency will be sensitive to the distributional form ascribbed to the $b_i$, Thus it is important to setting a good prior to $b_i$
+\section{Mixture of Dirichlet Process}
+\begin{align*}
+&\text{Stage 1 : } x_i | \theta_i \sim D_{n_i}(h_1(\theta_i)),\\
+&\text{Stage 2 : } \theta_i | \Psi_0 \sim D_{w}(h_2(\Psi_0))
+\end{align*}
+\begin{itemize}
+	\item $D_s()$ is a s-dimensional multivariate distribution
+	\item $h_1()$ and $h_2()$ are fucntions
+	\item $G$ general distribution, or base measure that approximates the true nonparametic shape of G
+	\item $G_0$ is a w-dimensional parametric distribution
+	\item Scalar $M$ reflects  how similar the nonparametic distribution $G$ is to the base measure$G_0$
+\end{itemize}
+MDP model removes assumption of a parametric prior at the second stage and replaces it with a general distribution $G$ which has Dirichlet process prior.
+\begin{align*}
+&\text{Stage 1 : } x_i | \theta_i \sim D_{n_i}(h_1(\theta_i)),\\
+&\text{Stage 2 : } \theta_i \sim^{iid} G\\
+&\text{Stage 3 : } G | M, \Psi_0 \sim DP(M\cdot G_0(h_2(\Psi_0)))
+\end{align*}
+\begin{itemize}
+	\item As $M \rightarrow \infty$, $G \rightarrow G_0$, so that the base measure is the prior distribution of $\theta_i$
+	\item if $\theta_i = \theta$, the base measure is the prior distribution of $\theta_i$ too
+\end{itemize}
+\section{Polya urn representation of Dirichlet process}
+\begin{itemize}
+	\item Draw of $\theta_1$ always from the base measure
+	\item Draw of $\theta_2$ is equal to $\theta_1$ with probaility $p_1$ and from base measure with $p_0 = 1- p_1$
+	\item Draw of $\theta_3$ is equal to $\theta_1$ with probaility $p_1$, equal to $\theta_2$ with probaility $p_2$ and from base measure with $p_0 = 1- p_1 - p_2$
+	\item $\theta_n$ is equal to $\theta_i$ with probaility $p_I$ and from from base measure with $p_0 = 1- \sum_{i=1}^{n-1}p_i$. The value $p_i$'s are determined from the Dirichlet process parameters.
+\end{itemize}
+\section{Conditional distribution of $\theta$}
+Conditional on the other $\theta$'s $\theta_i$ has the mixture distribution
+\begin{align*}
+p(\theta_i | x , \theta_{-i}) \propto \sum_{j\ne i}q_j \delta_{\theta_j} + Mq_0h_0(\theta_i)p(x_i|\theta_i)
+\end{align*}
+\begin{itemize}
+	\item $q_j$ and $Mq_0$ can be normailized to get the selection probabilities $p_i$, $i=0,\dots n-1$
+	\item $p(x_i|\theta_i)$ is the smapling distribution
+	\item $\delta_s$ is degenerate distribution with point mass at s
+	\item $g_0$ is density correspond to $G_0$
+	\item $q_j = p(x_i | \theta_j)$ and $q_0 = \int p(x_i |\theta)g_0(\theta)d\theta$
+\end{itemize}
+\section{DP prior in random effect model}
+Model of $p$ fixed effects and $v$ random effets is
+\begin{align*}
+y_i | \beta,b_i,\sigma^2 \sim N_{n_i}(X_i \beta + Z_i b_i , \sigma^2 I_{n_i})
+\end{align*}
+Letting $\tau = \sigma^{-1}$. priors are
+\begin{align*}
+&\tau \sim Gamma\left(\frac{a_0}{2},\frac{\lambda_0}{2}\right)\\
+&\beta \sim N_p(\mu_0,\Sigma_0)\\
+&b_i \sim G\\
+&G \sim DP(M\cdot N_v(0,D))
+\end{align*}
+\end{document}

@@ -1,0 +1,825 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Q4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{sqrtm}
+\end{Verbatim}
+
+
+    \subsection{Calculate the pmf and
+Derivatives}\label{calculate-the-pmf-and-derivatives}
+
+FIrst we can make the pmf of y \[
+p_y(y) = \pi \cdot I(y=0) + (1-\pi) \frac{e^{-\lambda} \lambda^y}{y!}
+\] Let \(\theta = (\lambda,\pi)\) and \(Y = (y_1 , \dots , y_n)\) Then
+likelihood is, \[
+\begin{align*}
+L(\theta | Y) &= \prod_{i=1}^{n}\left[\pi \cdot I(y_i=0) + (1-\pi)\frac{e^{-\lambda} \lambda^{y_i}}{y_i!} \right] \\
+&= \prod_{y_i=0}\left[\pi + (1-\pi)\frac{e^{-\lambda} \lambda^{0}}{0!} \right] \prod_{y_i\ne 0}\left[ (1-\pi)\frac{e^{-\lambda} \lambda^{y_i}}{y_i!} \right]
+\end{align*}
+\] \(N = \sum_{k=0}^{6}n_k\), Then log likelihood \(l(\theta)\) is \[
+\begin{align*}
+l(\theta) &= \sum_{y_i=0}log\left[\pi + (1-\pi)\frac{e^{-\lambda} \lambda^{0}}{0!} \right] + \sum_{y_i\ne 0}log\left[ (1-\pi)\frac{e^{-\lambda} \lambda^{y_i}}{y_i!} \right]\\
+&=n_0 log \left[ \pi+(1-\pi)e^{-\lambda} \right] + (N-n_0)\left[ log(1-\pi) -\lambda \right] + \sum_{y_i \ne 0}\left[ y_i log \lambda - log(y_i !) \right]
+\end{align*}
+\] Then, log likelihood function is
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{loglikelihood}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{n}{n0} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                  \PY{o}{+} \PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{n0}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{lam}\PY{p}{)} \PYZbs{}
+                  \PY{o}{+}\PY{p}{(}\PY{n}{Y}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{lam}\PY{p}{)}\PYZbs{}
+                  \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} 
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    First derivative is \[
+\begin{align}
+\frac{\partial l(\theta)}{\partial \lambda} & = (-n_0)\cdot \frac{(1-\pi)e^{-\lambda}}{\pi + (1-\pi)e^{-\lambda}} -(N-n_0) + \sum_{y_i \ne 0}\left( \frac{y_i}{\lambda}\right)\\
+& = (-n_0)\cdot \frac{(1-\pi)e^{-\lambda}}{\pi + (1-\pi)e^{-\lambda}} -(N-n_0) + \sum_{y_i}\left( \frac{y_i}{\lambda}\right)\\
+\frac{\partial l(\theta)}{\partial \pi} & = n_0 \cdot \frac{1-e^{-\lambda}}{\pi + (1-\pi)e^{-\lambda}} - (N-n_o)\cdot \frac{1}{1-\pi}
+\end{align}
+\]
+
+    Second Derivatice is \[
+\begin{align*}
+\frac{\partial^{2}l\left(\theta\right)}{\partial\lambda^2} & =n_{0} \cdot \frac{\pi\left(1-\pi\right)e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}-\sum_{y_{i}\neq0}\frac{y_{i}}{\lambda^{2}}\\
+& =n_{0} \cdot \frac{\pi\left(1-\pi\right)e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}-\sum_{y_{i}}\frac{y_{i}}{\lambda^{2}}\\
+\frac{\partial^{2}l\left(\theta\right)}{\partial\pi^2} & =(-n_{0})\cdot \frac{\left(1-e^{-\lambda}\right)^{2}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}-\left(N-n_{0}\right)\frac{1}{\left(1-\pi\right)^{2}}\\
+\frac{\partial^{2}l\left(\theta\right)}{\partial\pi\partial\lambda} &=n_{0} \cdot \frac{e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}
+\end{align*}
+\]
+
+    \section{(a) Derive Newton's Method and Fisher Scoring
+Method}\label{a-derive-newtons-method-and-fisher-scoring-method}
+
+\subsection{Newton's method}\label{newtons-method}
+
+Iterate \[
+\theta^{(t+1)} = \theta^{(t)} - \left[ l''(\theta^{(t)}) \right]^{-1}l'(\theta^{(t)})
+\] and Standard Error Estimate is \[
+\sqrt{\left(-l''(\theta)\right)^{-1}}
+\] We calculated \(l'(\theta)\) and \(l''(\theta)\), first make the
+dataset and derivative functions
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3062}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{587}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{284}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{103}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{33}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{Y}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (4075,)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{first\PYZus{}der\PYZus{}lam}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{n0} \PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{pi}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{n0}\PY{p}{)} \PY{o}{+} \PY{n}{y}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{lam}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{first\PYZus{}der\PYZus{}pi}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{pi}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{n0}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{second\PYZus{}der\PYZus{}lam2}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{lam}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{second\PYZus{}der\PYZus{}pi2}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{n0}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n0} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{n}{out} \PY{o}{=} \PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    Set the initail value \[
+\begin{align*}
+\lambda_0 &= 1 \\
+\pi_0 &= 0.5
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{lam} \PY{p}{,} \PY{n}{pi} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.5}
+        \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Make the function iterate until loglikelihood do not increase more than
+criteria
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{Newton}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{citeria} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{llikelst} \PY{o}{=} \PY{p}{[}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}
+             \PY{n}{thetalst} \PY{o}{=} \PY{p}{[}\PY{n}{theta}\PY{p}{]}
+             \PY{n}{niter} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{niter} \PY{o}{=} \PY{n}{niter} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{l1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{first\PYZus{}der\PYZus{}lam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+                                \PY{p}{,}\PY{n}{first\PYZus{}der\PYZus{}pi}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{l2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{n}{second\PYZus{}der\PYZus{}lam2}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{second\PYZus{}der\PYZus{}pi2}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{theta} \PY{o}{=} \PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{l2}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{l1}\PY{p}{)}
+                 \PY{n}{thetalst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                 \PY{n}{llikelst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{citeria}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{n}{out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logLikelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{llikelst}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{stdm} \PY{o}{=} \PY{n}{sqrtm}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{l2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{,}\PY{n}{stdm}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{N\PYZus{}result}\PY{p}{,}\PY{n}{N\PYZus{}stdm} \PY{o}{=} \PY{n}{Newton}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    Then the result is \[
+\hat{\theta}^{Newton} = (\hat{\lambda}^{Newton},\hat{\pi}^{Newton})=(1.037836,0.615055)\]
+it converges at 13 times
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{N\PYZus{}result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}       lambda        pi  logLikelihood
+         0   1.000000  0.500000  -10425.367474
+         1   0.866135  0.529549  -10396.762382
+         2   0.939669  0.562936  -10386.699016
+         3   0.990509  0.589546  -10381.765834
+         4   1.018312  0.604416  -10380.371074
+         5   1.030320  0.610933  -10380.109878
+         6   1.035009  0.613502  -10380.069499
+         7   1.036783  0.614476  -10380.063694
+         8   1.037446  0.614841  -10380.062881
+         9   1.037693  0.614976  -10380.062768
+         10  1.037785  0.615027  -10380.062752
+         11  1.037819  0.615046  -10380.062750
+         12  1.037832  0.615053  -10380.062750
+         13  1.037836  0.615055  -10380.062750
+\end{Verbatim}
+            
+    Standard error estimate is
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{N\PYZus{}stdm}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}           0         1
+         0  0.036015  0.004470
+         1  0.004470  0.009601
+\end{Verbatim}
+            
+    \subsection{Fisher Scoring method}\label{fisher-scoring-method}
+
+Iterate \[
+\theta^{(t+1)} = \theta^{(t)} + \left[ I(\theta^{(t)})\right]^{-1}l'(\theta^{(t)})
+\] where \(I(\theta) = E\left[- l''(\theta) \right]\), and Standard
+Error Estimate is \[
+\sqrt{\left[ I(\theta^{(t)})\right]^{-1}}
+\] We calculated \(l'(\theta)\) , \(l''(\theta)\), we only need to
+calculate \(I(\theta) = E\left[- l''(\theta) \right]\)
+
+    Since \[
+n_0 ,\dots , n_6 \sim Multinomial\left(N,\left\{\pi + (1-\pi)e^{-\lambda},(1-\pi)\frac{\lambda^1e^{-\lambda}}{1!},\dots,\frac{\lambda^6e^{-\lambda}}{6!}\right\}\right)
+\] Expected value of \(n_k\) is \[
+\begin{align*}
+E[n_0] &=  N\cdot (\pi + (1-\pi)e^{-\lambda}) \\
+E[n_k] & = N\cdot \left((1-\pi)\frac{\lambda^ke^{-\lambda}}{k!}\right)  \text{ for i}= 1,\dots.6
+\end{align*}
+\]
+
+    Then \(I(\theta) = E\left[- l''(\theta) \right]\) is
+
+    \[
+\begin{align*}
+E\left[-\frac{\partial^{2}l\left(\theta\right)}{\partial\lambda^2}\right] & =-E[n_{0}] \cdot \frac{\pi\left(1-\pi\right)e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}+ E\left[\sum_{y_{i}\neq0}\frac{y_{i}}{\lambda^{2}}\right]\\
+& =-E[n_{0}] \cdot \frac{\pi\left(1-\pi\right)e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}+E\left[\sum_{k=1}^{6}\frac{k \cdot n_k}{\lambda^{2}}\right]\\
+& =-E[n_{0}] \cdot \frac{\pi\left(1-\pi\right)e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}+\sum_{k=1}^{6}\frac{k \cdot E[n_k]}{\lambda^{2}} \\
+E\left[-\frac{\partial^{2}l\left(\theta\right)}{\partial\pi^2} \right]& =E[n_{0}]\cdot \frac{\left(1-e^{-\lambda}\right)^{2}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}-\left(N-E[n_{0}]\right)\frac{1}{\left(1-\pi\right)^{2}}\\
+E\left[-\frac{\partial^{2}l\left(\theta\right)}{\partial\pi\partial\lambda}\right] &= -E[n_{0}] \cdot \frac{e^{-\lambda}}{\left(\pi+\left(1-\pi\right)e^{-\lambda}\right)^{2}}
+\end{align*}
+\]
+
+    Make the function of expectation of \(n_k\)'s where \(k \ne 0\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{E\PYZus{}nk}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{lam}\PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{E\PYZus{}second\PYZus{}der\PYZus{}lam2}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{n0} \PY{o}{=} \PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}
+             \PY{n}{summ} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{summ}  \PY{o}{=} \PY{n}{summ} \PY{o}{+} \PY{n}{k}\PY{o}{*}\PY{n}{E\PYZus{}nk}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PYZbs{}
+                   \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{summ}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{lam}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{E\PYZus{}second\PYZus{}der\PYZus{}pi2}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{n0} \PY{o}{=} \PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                   \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{n}{n0}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{E\PYZus{}second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{n0} \PY{o}{=} \PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{n}{n0}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{pi}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    Set the initail value \[
+\begin{align*}
+\lambda_0 &= 1 \\
+\pi_0 &= 0.5
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{lam} \PY{p}{,} \PY{n}{pi} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.5}
+         \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{Fisher}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{citeria} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{llikelst} \PY{o}{=} \PY{p}{[}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}
+             \PY{n}{thetalst} \PY{o}{=} \PY{p}{[}\PY{n}{theta}\PY{p}{]}
+             \PY{n}{niter} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{niter} \PY{o}{=} \PY{n}{niter} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{l1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{first\PYZus{}der\PYZus{}lam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+                                \PY{p}{,}\PY{n}{first\PYZus{}der\PYZus{}pi}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{l2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{n}{E\PYZus{}second\PYZus{}der\PYZus{}lam2}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{E\PYZus{}second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{E\PYZus{}second\PYZus{}der\PYZus{}pilam}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{E\PYZus{}second\PYZus{}der\PYZus{}pi2}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{theta} \PY{o}{=} \PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{l2}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{l1}\PY{p}{)}
+                 \PY{n}{thetalst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                 \PY{n}{llikelst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{citeria}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{n}{out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logLikelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{llikelst}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{stdm} \PY{o}{=} \PY{n}{sqrtm}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{l2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{,}\PY{n}{stdm}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{F\PYZus{}result}\PY{p}{,}\PY{n}{F\PYZus{}stdm} \PY{o}{=} \PY{n}{Fisher}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    Then the result is \[
+\hat{\theta}^{Fisher} = (\hat{\lambda}^{Fisher},\hat{\pi}^{Fisher})=(1.037836,  0.615055)\]
+it converges at 13 times
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{F\PYZus{}result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}       lambda        pi  logLikelihood
+         0   1.000000  0.500000  -10425.367474
+         1   0.915897  0.538016  -10393.735425
+         2   0.950009  0.568840  -10385.365635
+         3   0.992221  0.591847  -10381.488303
+         4   1.018426  0.605006  -10380.339002
+         5   1.030359  0.611067  -10380.106903
+         6   1.035041  0.613536  -10380.069205
+         7   1.036799  0.614487  -10380.063659
+         8   1.037453  0.614844  -10380.062876
+         9   1.037696  0.614978  -10380.062767
+         10  1.037786  0.615027  -10380.062752
+         11  1.037819  0.615046  -10380.062750
+         12  1.037832  0.615053  -10380.062750
+         13  1.037836  0.615055  -10380.062750
+\end{Verbatim}
+            
+    Standard error estimates is
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{F\PYZus{}stdm}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}           0         1
+         0  0.036041  0.004474
+         1  0.004474  0.009601
+\end{Verbatim}
+            
+    \section{(b) EM algorithn}\label{b-em-algorithn}
+
+Let Z be random varible \[
+Z \sim Bernoulli(\pi)
+\] and \(\theta = (\lambda , \pi)\) Then, \[
+\begin{align*}
+L(\theta | Y , Z) &= P(Y,Z|\theta)\\
+&= P(Y|Z,\theta)P(Z|\theta)\\
+&= \prod_{i} I(y_i =0)^{z_i}\left(\frac{e^{-\lambda}\lambda^{y_i}}{y_i!}\right)^{1-z_i} \prod_{i}\pi^{z_i}(1-\pi)^{1-z_i}\\
+&= \prod_{i} \left[\pi \cdot I(y_i =0)\right]^{z_i}\left[(1-\pi)\left(\frac{e^{-\lambda}\lambda^{y_i}}{y_i!}\right)\right]^{1-z_i}
+\end{align*}
+\]
+
+    log likelihood is \[
+\begin{align*}
+l(\theta | Y ,Z ) = \sum_{i} \left[ z_i log(\pi \cdot I(y_i=0)) + (1-z_i)\left\{ log(1-\pi) - \lambda + y_i log(\lambda) - log (y_i!)\right\} \right]
+\end{align*}
+\]
+
+    \subsubsection{E-step}\label{e-step}
+
+\[
+\begin{align*}
+Q(\theta| \theta^{(t)}) &= E [l(\theta | Y_{com})| Y_{obs}, \theta^{(t)}]\\
+& = \sum_{i} \left[ E[z_i | Y, \theta^{(t)}] log(\pi \cdot I(y_i=0)) + (1-E[z_i | Y, \theta^{(t)}])\left\{ log(1-\pi) - \lambda + y_i log(\lambda) - log (y_i!)\right\} \right]
+\end{align*}
+\]
+
+    Where \[
+\begin{align*}
+E[z_i | Y, \theta^{(t)}] &= P(z_i = 1 | Y, \theta^{(t)})\\
+ &= \frac{P(y_i | z_i = 1 ,\theta^{(t)})P(z_i=1)}{P(y_i | z_i = 0 ,\theta^{(t)})P(z_i=0)+P(y_i | z_i = 1 ,\theta^{(t)})P(z_i=1)}\\
+ &= \begin{cases} 0 &\text{when }y_i \ne 0 \\
+\frac{\pi^{(t)}}{\pi^{(t)} + (1-\pi^{(t)})e^{-\lambda^{(t)}}} &\text{when } y_i =0 \end{cases}
+\end{align*}
+\]
+
+    \subsubsection{M-step}\label{m-step}
+
+    First partial derivative for \(\lambda\), \[
+\begin{align*}
+&\frac{\partial Q(\theta| \theta^{(t)}) }{\partial \lambda} =^{let} 0\\
+\rightarrow &\sum_i (1-E[z_i | Y, \theta^{(t)}])(-1 + \frac{y_i}{\lambda}) = 0\\
+\rightarrow &\lambda^{(t+1)} = \frac{\sum_i(1-E[z_i | Y, \theta^{(t)}])\cdot y_i}{\sum_i(1-E[z_i | Y, \theta^{(t)}])}
+\end{align*}
+\] Second partial derivative for \(\pi\), \[
+\begin{align*}
+&\frac{\partial Q(\theta| \theta^{(t)}) }{\partial \pi} =^{let} 0\\
+\rightarrow &\sum_i\frac{E[z_i | Y, \theta^{(t)}]}{\pi} - \sum_i\frac{1-E[z_i | Y, \theta^{(t)}]}{1- \pi} = 0\\
+\rightarrow &\pi^{(t+1)}= \frac{1}{N}\sum_i E[z_i | Y, \theta^{(t)}]
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{Estep}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{Y} \PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{out} \PY{o}{=} \PY{n}{pi}\PY{o}{/}\PY{p}{(}\PY{n}{pi} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{out} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{Mstep}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lam} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{y} \PY{p}{:} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{Estep}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{y}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PYZbs{}
+                   \PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{y} \PY{p}{:} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{Estep}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{pi} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{y} \PY{p}{:} \PY{n}{Estep}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{iterateEM}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{citeria} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{llikelst} \PY{o}{=} \PY{p}{[}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{]}
+             \PY{n}{thetalst} \PY{o}{=} \PY{p}{[}\PY{n}{theta}\PY{p}{]}
+             \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{theta} \PY{o}{=} \PY{n}{Mstep}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+                 \PY{n}{thetalst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+                 \PY{n}{llikelst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loglikelihood}\PY{p}{(}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{llikelst}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{citeria}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{n}{out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{thetalst}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logLikelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{llikelst}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+\end{Verbatim}
+
+
+    Set the initail value \[
+\begin{align*}
+\lambda_0 &= 1 \\
+\pi_0 &= 0.5
+\end{align*}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{lam} \PY{p}{,} \PY{n}{pi} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.5}
+         \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{lam}\PY{p}{,}\PY{n}{pi}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{EM\PYZus{}result} \PY{o}{=} \PY{n}{iterateEM}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{EM\PYZus{}result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}       lambda        pi  logLikelihood
+         0   1.000000  0.500000  -10425.367474
+         1   0.886469  0.532120  -10395.553509
+         2   0.890872  0.552198  -10390.295073
+         3   0.915914  0.567316  -10386.553374
+         4   0.941596  0.579144  -10383.965771
+         5   0.963787  0.588331  -10382.322126
+         6   0.981853  0.595353  -10381.333153
+         7   0.996074  0.600637  -10380.760983
+         8   1.007004  0.604565  -10380.439774
+         9   1.015254  0.607456  -10380.263591
+         10  1.021396  0.609568  -10380.168651
+         11  1.025921  0.611102  -10380.118167
+         12  1.029230  0.612212  -10380.091588
+         13  1.031635  0.613013  -10380.077695
+         14  1.033376  0.613590  -10380.070472
+         15  1.034633  0.614005  -10380.066731
+         16  1.035538  0.614303  -10380.064799
+         17  1.036188  0.614516  -10380.063804
+         18  1.036656  0.614669  -10380.063291
+         19  1.036991  0.614779  -10380.063028
+         20  1.037231  0.614858  -10380.062892
+         21  1.037404  0.614914  -10380.062823
+         22  1.037527  0.614955  -10380.062787
+         23  1.037616  0.614984  -10380.062769
+         24  1.037679  0.615004  -10380.062760
+         25  1.037724  0.615019  -10380.062755
+         26  1.037757  0.615030  -10380.062752
+         27  1.037780  0.615038  -10380.062751
+         28  1.037797  0.615043  -10380.062750
+         29  1.037809  0.615047  -10380.062750
+         30  1.037818  0.615050  -10380.062750
+         31  1.037824  0.615052  -10380.062750
+\end{Verbatim}
+            
+    Then the result is \[
+\hat{\theta}^{EM} = (\hat{\lambda}^{EM},\hat{\pi}^{EM})=(   1.037824    ,0.615052)\]
+it converges at 31 times
+
+    \section{(c) compare the result}\label{c-compare-the-result}
+
+Newton's method result is \[
+\hat{\theta}^{Fisher} = (\hat{\lambda}^{Fisher},\hat{\pi}^{Fisher})=(1.037836,  0.615055)\]
+it converges at 13 times
+
+Fisher scoring method result is \[
+\hat{\theta}^{Fisher} = (\hat{\lambda}^{Fisher},\hat{\pi}^{Fisher})=(1.037836,  0.615055)\]
+it converges at 13 times
+
+EM result is \[
+\hat{\theta}^{EM} = (\hat{\lambda}^{EM},\hat{\pi}^{EM})=(   1.037824    ,0.615052)\]
+it converges at 31 times\\
+Estimated value of \(\theta\) is very similar but EM algorithm converges
+slower than Newton's and Fisher scoring method
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

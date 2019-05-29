@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+%\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{fancybox}%,times}
+\usepackage{graphicx,psfrag,epsf}
+%\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx,psfrag}
+\usepackage{multirow}
+\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{theorem}
+\usepackage{natbib,psfrag}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{kotex}
+\newcommand{\blind}{0}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\addtolength{\oddsidemargin}{-.75in}%
+\addtolength{\evensidemargin}{-.75in}%
+\addtolength{\textwidth}{1.5in}%
+\addtolength{\textheight}{1.3in}%
+%\addtolength{\topmargin}{-.6in}%
+\addtolength{\topmargin}{-.8in}%
+
+%\theoremstyle{break}
+\newtheorem{The}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Pro}{Proposition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Cor}{Corollary}
+\newtheorem{asp}{Assumption}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\renewcommand{\thefootnote}{\roman{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+
+
+%\bibliographystyle{natbib}
+
+\newcommand{\Ito}{$It\hat{o}$'$s~Lemma$}
+
+\newcommand\ind{\stackrel{\rm ind}{\sim}}
+\newcommand\iid{\stackrel{\rm iid}{\sim}}
+\renewcommand\c{\mathbf{c}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\renewcommand\P{\mathbf{P}}
+\newcommand\W{\mathbf{W}}
+\newcommand\X{\mathbf{X}}
+\newcommand\Y{\mathbf{Y}}
+\newcommand\Z{\mathbf{Z}}
+\newcommand\J{{\cal J}}
+\newcommand\B{{\cal B}}
+\newcommand\K{{\cal K}}
+\newcommand\N{{\rm N}}
+\newcommand\bs{\boldsymbol}
+\newcommand\bth{\bs\theta}
+\newcommand\bbe{\bs\beta}
+\renewcommand\*{^\star}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Q8}
+  \end{center}
+  \medskip
+
+%\begin{abstract}
+%\end{abstract}
+
+%\noindent%
+%{\it Key Words:}  AECM algorithm; Astrophysical data analysis;
+%ECME algorithm; Incompatible Gibbs sampler; Marginal data
+%augmentation; Multiple imputation; Spectral analysis
+
+\spacingset{1.45}
+
+
+
+
+
+\section*{(a) Complete data log likelihood under under expanded parameter space $\Theta = (\theta^*, \alpha)$}
+\begin{align*}
+L(\Theta | S, Y) & = \prod_{i=1}^{n}P(S,Y|\Theta)\\
+&=\prod_{i=1}^{n} P(Y|S,\Theta) P(S|\Theta) \\
+&=\prod_{i=1}^{n}\frac{e^{-(1-\alpha)}(1-\alpha)^{y_i-s_i}}{(y_i-s_i)!} \frac{{\theta^*}^{s_i}e^{-\theta^*}}{s_i!}\\
+&= e^{-n(1-\alpha+\theta^*)} \cdot {\theta^*}^{\sum_{i=1}^{n}s_i} \cdot \prod_{i=1}^{n}\frac{(1-\alpha)^{y_i-s_i}}{(y_i-s_i)! \cdot s_i!}\\
+l(\Theta | S, Y) & = -n(1-\alpha) -n\theta^* + log(1-\alpha) \sum_{i=1}^{n}(y_i-s_i) + log(\theta^*)\sum_{i=1}^{n}s_i -\sum_{i=1}^n log\left[(y_i-s_i)! s_i!\right] 
+\end{align*}
+
+\section*{(b) show that observed data and complete data model preserved under the expanded parameter space}
+Model preserved when $\theta = \theta^* -\alpha$. Then,
+\begin{align*}
+R(\Theta) = \theta^* -\alpha
+\end{align*}
+Observed-data model is preserved
+\begin{align*}
+Y_{obs}|\Theta \sim P(Y_{obs} | \theta = R(\Theta))
+\end{align*}
+Complete data model is preserved at $\alpha=\alpha_0$
+\begin{align*}
+P_x(Y_{com}|\Theta = (\theta^*,\alpha_0)) &= e^{-n(1-\alpha_0+\theta^*)} \cdot {\theta^*}^{\sum_{i=1}^{n}s_i} \cdot \prod_{i=1}^{n}\frac{(1-\alpha_0)^{y_i-s_i}}{(y_i-s_i)! \cdot s_i!}\\
+P(Y_{com}|\theta =\theta^*)&= e^{-n(1+\theta^*)} \cdot {\theta^*}^{\sum_{i=1}^{n}s_i} \cdot \prod_{i=1}^{n}\frac{1}{(y_i-s_i)! \cdot s_i!}
+\end{align*}
+$P_x(Y_{com}|\Theta = (\theta^*,\alpha_0)) = P(Y_{com}|\theta =\theta^*)$ when $\alpha_0 = 0$, Complete data model is preserved at $\alpha_0=0$
+\section*{(c) Derive PX-EM and show that converges in one iteration}
+\subsection{E-step}
+\begin{align*}
+Q(\Theta| \Theta^{(t)}) &= E [l(\Theta | Y_{com})| Y_{obs}, \Theta^{(t)}]\\
+&=-n(1-\alpha) -n\theta^* + log(1-\alpha) \sum_{i=1}^{n}(y_i-E \left[s_i | Y, \Theta^{(t)} \right]) + log(\theta^*)\sum_{i=1}^{n}E \left[s_i | Y, \Theta^{(t)} \right]
+\end{align*}
+need to compute pmf of $s_i|Y_{obs},\Theta^{(t)}$ is
+\begin{align*}
+P(s_i|Y_{obs}=y_i,\Theta^{(t)}) &= \frac{P(s_i,y_i|\Theta^{(t)})}{P(y_i|\Theta^{(t)})}\\
+&= \frac{{\theta^{*(t)}}^{s_i} e^{-\theta^{*(t)}}}{s_i!} \cdot \frac{(1-\alpha)^{y_i-s_i}e^{-(1-\alpha)}}{(y_i-s_i)!} \cdot \left[ \frac{(\theta^{*(t)}+1-\alpha)^{y_i} e ^{-(\theta^{*(t)} + 1-\alpha)}}{y_i !}\right]^{-1}\\
+&= \frac{y_i!}{(y_i-s_i)!s_i!} \left(\frac{\theta^{*(t)}}{\theta^{*(t)} +1-\alpha}\right)^{s_i} \left(\frac{1}{\theta^{*(t)} +1-\alpha}\right)^{y_i - s_i}
+\end{align*}
+Thus $s_i|Y_{obs}=y_i,\Theta^{(t)} \sim Binomial\left(y_i,\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}\right)$, Then $E[s_i| Y_{obs}, \theta^{(t)}]= y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}$
+\subsection{M-step}
+\begin{align*}
+Q(\Theta | \Theta^{(t)}) = -n(1-\alpha) -n\theta^* +log(1-\alpha)\sum_{i=1}^{n}(y_i - y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}) + log\theta^* \cdot \sum_{i=1}^{n}y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}
+\end{align*}
+Maximize the $Q$function by letting the first derivative 0
+\begin{align*}
+\frac{\partial Q(\Theta | \Theta^{(t)})}{\partial \theta^*} &=^{let} 0\\
+&=-n + \frac{\sum_{i=1}^{n}y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}}{\theta^*}\\
+\theta^{*(t+1)} &= \frac{1}{n}\cdot \sum_{i=1}^{n}y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha}\\
+\frac{\partial Q(\Theta | \Theta^{(t)})}{\partial \alpha} &=^{let} 0\\
+&= n - \frac{\sum_{i=1}^{n}\left( y_i -y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha} \right)}{1-\alpha}\\
+&= n - \frac{\sum_{i=1}^{n}y_i\left(1-\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha} \right)}{1-\alpha}\\
+\hat{\alpha} &= 1 - \frac{\sum_{i=1}^{n}y_i\left(1-\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha} \right)}{n}
+\end{align*}
+First iteration is,
+\begin{align*}
+\theta^{(t+1)} &= R(\Theta^{(t+1)})\\
+&=\hat{\theta}^* - \hat{\alpha}\\
+&=\frac{1}{n}\cdot \sum_{i=1}^{n}y_i\cdot\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha} - 1 + \frac{\sum_{i=1}^{n}y_i\left(1-\frac{\theta^{*(t)}}{\theta^{*(t)} + 1 -\alpha} \right)}{n}\\
+&=\frac{\sum_{i=1}^{n}y_i}{n} -1
+\end{align*}
+Which is same value in Q7 (unique solution of EM-algorithm), it converges in first iteration.
+\end{document}
